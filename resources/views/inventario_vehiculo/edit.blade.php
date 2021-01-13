@@ -16,13 +16,13 @@
                 @csrf 
                 @method('PUT')
                     <div class="row">
-                        <div class="col-md-12">
-                          <div class="form-group" id="cls_ive_descripcion">
-                              <label class="bmd-label-floating">*Descripcion.-</label>
-                              <input type="text" aria-describedby="ive_descripcion" class="form-control" id="ive_descripcion" name="ive_descripcion" value="{{ $inventario->ive_descripcion }}">
-                              <span class="material-icons form-control-feedback">clear</span>
-                              <span class="invalid-feedback" role="alert" id="error_ive_descripcion"><strong></strong></span>
-                          </div>
+                        <div class="col-12">
+                            <div class="form-group" id="cls_ive_descripcion">
+                                <label class="control-label">*Descripcion.-</label>
+                                <input type="text" class="form-control text-uppercase" id="ive_descripcion" name="ive_descripcion" value="{{ $inventario->ive_descripcion }}"/>
+                                <span class="material-icons form-control-feedback">clear</span>
+                                <span class="invalid-feedback" role="alert" id="error_ive_descripcion"><strong></strong></span>
+                            </div>
                         </div>
                     </div>
                     <button type="submit" class="btn btn-warning btn-round btn-sm pull-right"><i class="material-icons">save</i> Modificar Datos</button>
@@ -38,9 +38,8 @@
 
     $("#inventario_vehiculo").addClass("active");
 
-    $("#ive_descripcion").on('change keyup', function () {
+    $("#ive_descripcion").on('focus', function () {
         limpiarErrores($(this).attr('id'));
-        $(this).attr('id').blur(); 
     });
 
     $('#FormularioEditarInventario').submit(function(e){

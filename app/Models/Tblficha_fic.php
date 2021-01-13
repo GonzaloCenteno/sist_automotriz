@@ -18,4 +18,34 @@ class Tblficha_fic extends Model
     {
         return $this->hasOne(Tblpersona_per::class,'per_id','per_id');
     }
+
+    public function setFicFacturaraAttribute($value)
+	{
+	    $this->attributes['fic_facturara'] = strtoupper($value);
+	}
+
+	public function setFicMarcaAttribute($value)
+	{
+	    $this->attributes['fic_marca'] = strtoupper($value);
+	}
+
+	public function setFicPlacaAttribute($value)
+	{
+	    $this->attributes['fic_placa'] = strtoupper($value);
+	}
+
+	public function setFicModeloAttribute($value)
+	{
+	    $this->attributes['fic_modelo'] = strtoupper($value);
+	}
+
+	public function setFicColorAttribute($value)
+	{
+	    $this->attributes['fic_color'] = strtoupper($value);
+	}
+
+	public function setFicObservacionesAttribute($value)
+	{
+	    $this->attributes['fic_observaciones'] = strtoupper($value);
+	}
 }

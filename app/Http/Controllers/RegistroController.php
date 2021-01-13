@@ -20,7 +20,7 @@ class RegistroController extends Controller
     public function store(FichaRequest $request)
     {
         if(!$request->ajax()) return redirect('/');
-        $request['fic_fecha'] = now();
+        $request['fic_fecha'] = date('Y-m-d');
         $request['fic_inventariovehiculo'] = implode(",", $request['fic_inventariovehiculo']);
         $ficha = Tblficha_fic::create($request->all());
         return $ficha->fic_id;

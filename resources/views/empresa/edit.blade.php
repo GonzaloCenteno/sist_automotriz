@@ -116,9 +116,8 @@
 
     $("#empresa").addClass("active");
 
-    $("#emp_nombre, #emp_titulo, #emp_direccion, #emp_telefono, #emp_correo, #emp_web, #emp_horario, #emp_descripcion, #emp_imagen").on('change keyup', function () {
+    $("#emp_nombre, #emp_titulo, #emp_direccion, #emp_telefono, #emp_correo, #emp_web, #emp_horario, #emp_descripcion, #emp_imagen").on('focus', function () {
         limpiarErrores($(this).attr('id'));
-        $(this).attr('id').blur(); 
     });
 
     $('#FormulariosModificarEmpresa').submit(function(e){

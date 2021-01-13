@@ -40,6 +40,14 @@
                     </div>
                     <div class="sidebar-wrapper">
                         <ul class="nav">
+                            @if(Auth::user()->rol == 'TECNICO')
+                            <li class="nav-item" id="registro">
+                                <a class="nav-link" href="{{ route('registro.index') }}">
+                                    <i class="material-icons">create</i>
+                                    <p>REGISTRO</p>
+                                </a>
+                            </li>
+                            @else
                             <li class="nav-item" id="empresa">
                                 <a class="nav-link" href="{{ route('empresa.index') }}">
                                     <i class="material-icons">location_city</i>
@@ -65,11 +73,12 @@
                                 </a>
                             </li>
                             <li class="nav-item" id="fichas">
-                                <a class="nav-link" href="#0">
+                                <a class="nav-link" href="{{ route('ficha.index') }}">
                                     <i class="material-icons">assignment</i>
                                     <p>FICHAS</p>
                                 </a>
                             </li>
+                            @endif
                         </ul>
                     </div>
                 </div>
@@ -91,7 +100,7 @@
                                         <h6 class="mb-0"><b>Bienvenido: {{ Auth::user()->name }}</b></h6>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="javascript:;">
+                                        <a class="nav-link" href="{{ route('micuenta.index') }}">
                                             <i class="material-icons">account_box</i> Mi Cuenta
                                         </a>
                                     </li>
@@ -126,6 +135,7 @@
     <script src="{{ asset('js/sweetalert2.js') }}"></script>
     <script src="{{ asset('js/demo.js') }}"></script>
     <script src="{{ asset('js/bootstrap4-toggle.min.js') }}"></script>
+    <script src="{{ asset('js/block_ui.js') }}"></script>
     <script type="text/javascript">
         $(function () {
             $.ajaxSetup({
@@ -152,13 +162,13 @@
         function limpiarErrores(nombre) {
             $("#error_"+nombre).hide();
             $("#error_"+nombre).text('');
-            $("#cls_"+nombre).removeClass('bmd-form-group is-filled has-danger');
+            $("#cls_"+nombre).removeClass('has-danger');
         }
 
         function mostrarErrores(nombre, error) {
             $("#error_"+nombre).show();
             $("#error_"+nombre).text(error);
-            $("#cls_"+nombre).addClass('bmd-form-group is-filled has-danger');
+            $("#cls_"+nombre).addClass('has-danger');
         }
 
         function alertas(tipo, url) {

@@ -17,8 +17,8 @@
                     <div class="row">
                         <div class="col-8">
                             <div class="form-group" id="cls_name">
-                                <label class="bmd-label-floating">*Nombres y Apellidos.-</label>
-                                <input type="text" aria-describedby="name" class="form-control" id="name" name="name" autofocus>
+                                <label class="control-label">*Nombres y Apellidos.-</label>
+                                <input type="text" class="form-control text-uppercase" id="name" name="name"/>
                                 <span class="material-icons form-control-feedback">clear</span>
                                 <span class="invalid-feedback" role="alert" id="error_name"><strong></strong></span>
                             </div>
@@ -38,16 +38,16 @@
                     <div class="row">
                         <div class="col-6">
                             <div class="form-group" id="cls_email">
-                                <label class="bmd-label-floating">*Email.-</label>
-                                <input type="email" aria-describedby="email" class="form-control" id="email" name="email">
+                                <label class="control-label">*Email.-</label>
+                                <input type="text" class="form-control text-uppercase" id="email" name="email"/>
                                 <span class="material-icons form-control-feedback">clear</span>
                                 <span class="invalid-feedback" role="alert" id="error_email"><strong></strong></span>
                             </div>
                         </div>
                         <div class="col-6">
                             <div class="form-group" id="cls_password">
-                                <label class="bmd-label-floating">*Password.-</label>
-                                <input type="password" aria-describedby="password" class="form-control" id="password" name="password">
+                                <label class="control-label">*Password.-</label>
+                                <input type="password" class="form-control text-uppercase" id="password" name="password"/>
                                 <span class="material-icons form-control-feedback">clear</span>
                                 <span class="invalid-feedback" role="alert" id="error_password"><strong></strong></span>
                             </div>
@@ -66,9 +66,8 @@
 
     $("#usuarios").addClass("active");
 
-    $("#name, #email, #rol, #password").on('change keyup', function () {
+    $("#name, #email, #rol, #password").on('focus', function () {
         limpiarErrores($(this).attr('id'));
-        $(this).attr('id').blur(); 
     });
 
     $('#FormularioCrearUsuario').submit(function(e){

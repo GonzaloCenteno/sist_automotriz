@@ -16,7 +16,7 @@ class CreateFichaTable extends Migration
         Schema::create('tblficha_fic', function (Blueprint $table) {
             $table->bigIncrements('fic_id');
             $table->text('fic_facturara');
-            $table->dateTime('fic_fecha');
+            $table->date('fic_fecha');
             $table->bigInteger('per_id')->unsigned();
             $table->text('fic_marca');
             $table->text('fic_placa');

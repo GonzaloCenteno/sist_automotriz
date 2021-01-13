@@ -19,8 +19,12 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::resource('/empresa', 'EmpresaController');
-Route::resource('/inventario_vehiculo', 'InventarioVehiculoController');
-Route::resource('/usuario', 'UsuarioController');
-Route::resource('/registro', 'RegistroController');
-Route::resource('/persona', 'PersonaController');
+Route::middleware(['auth','acceso','web'])->group(function () {
+	Route::resource('/empresa', 'EmpresaController');
+	Route::resource('/inventario_vehiculo', 'InventarioVehiculoController');
+	Route::resource('/usuario', 'UsuarioController');
+	Route::resource('/registro', 'RegistroController');
+	Route::resource('/persona', 'PersonaController');
+	Route::resource('/ficha', 'FichaController');
+	Route::resource('/micuenta', 'CuentaController');
+});

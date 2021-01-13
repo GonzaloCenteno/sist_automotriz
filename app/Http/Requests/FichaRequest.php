@@ -55,9 +55,9 @@ class FichaRequest extends FormRequest
             'fic_anio.required' => 'EL CAMPO AÑO ES OBLIGATORIO',
             'fic_nchasis.required' => 'EL CAMPO N° CHASIS ES OBLIGATORIO',
             'fic_trabajosarealizar.required' => 'EL CAMPO TRABAJOS A REALIZAR ES OBLIGATORIO',
-            'fic_inventariovehiculo.required' => 'EL CAMPO INVENTARIO VEHICULO ES OBLIGATORIO',
+            'fic_inventariovehiculo.required' => 'DEBE SELECCIONAR ALGUN ITEM DEL INVENTARIO',
             'fic_observaciones.required' => 'EL CAMPO OBSERVACIONES ES OBLIGATORIO',
-            'fic_nivelcombustible.required' => 'EL CAMPO NIVEL DE COMBUSTIBLE ES OBLIGATORIO'
+            'fic_nivelcombustible.required' => 'DEBE SELECCIONAR UN NIVEL DE COMBUSTIBLE'
         ];
     }
 }

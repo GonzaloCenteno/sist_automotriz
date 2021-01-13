@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class UsuarioRequest extends FormRequest
+class CuentaRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,8 +26,7 @@ class UsuarioRequest extends FormRequest
     {
         return [
             'name' => 'required',
-            'rol' => 'required|not_in:0',
-            'email' => ['required','email', Rule::unique('users')->ignore($this->usuario,'id')],
+            'email' => ['required','email', Rule::unique('users')->ignore($this->micuentum,'id')],
             'password' => 'sometimes|required'
         ];
     }
@@ -36,8 +35,6 @@ class UsuarioRequest extends FormRequest
     {
         return [
             'name.required' => 'EL CAMPO NOMBRE ES OBLIGATORIO',
-            'rol.required' => 'EL CAMPO ROL ES OBLIGATORIO',
-            'rol.not_in' => 'DEBE SELECCIONAR UNA OPCION',
             'email.required' => 'EL CAMPO CORREO ES OBLIGATORIO',
             'email.email' => 'EL CAMPO CORREO ES INVALIDO',
             'password.required' => 'EL CAMPO PASSWORD ES OBLIGATORIO'

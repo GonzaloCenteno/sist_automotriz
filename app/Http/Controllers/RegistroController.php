@@ -21,7 +21,7 @@ class RegistroController extends Controller
     {
         if(!$request->ajax()) return redirect('/');
         $request['fic_fecha'] = date('Y-m-d');
-        $request['fic_inventariovehiculo'] = implode(",", $request['fic_inventariovehiculo']);
+        $request['fic_inventariovehiculo'] = isset($request['fic_inventariovehiculo']) ? implode(",", $request['fic_inventariovehiculo']) : '';
         $ficha = Tblficha_fic::create($request->all());
         return $ficha->fic_id;
     }

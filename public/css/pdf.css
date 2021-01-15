@@ -177,11 +177,9 @@ table td,.cabtab {
 }
 
 table th {
-    text-align: center;
-    font-size: 0.7em;
+    text-align: left;
+    font-size: 0.8em;
     font-weight: normal;
-    background: #EDEBDE;
-    color: #000000;
 }
 
 

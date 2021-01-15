@@ -115,6 +115,7 @@ class FichaController extends Controller
             $Lista->rows[$Index]['id'] = $Datos->fic_id;
             $Lista->rows[$Index]['cell'] = array(
                 $Datos->fic_id,
+                '<button class="btn btn-warning btn-sm btn-fab btn-round py-0 my-0" onClick="fn_imprimir('.$Datos->fic_id.')"><i class="material-icons">edit</i></button>',
                 '<button class="btn btn-default btn-sm btn-fab btn-round py-0 my-0" onClick="fn_imprimir('.$Datos->fic_id.')"><i class="material-icons">print</i></button>',
                 $Datos->fic_facturara,
                 $Datos->persona->NombreCompleto,

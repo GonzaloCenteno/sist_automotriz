@@ -29,7 +29,6 @@ class PersonaRequest extends FormRequest
             'per_apaterno' => 'required',
             'per_amaterno' => 'required',
             'per_email' => 'required|email',
-            'per_direccion' => 'required',
             'per_telefonos' => 'required'
         ];
     }
@@ -46,7 +45,6 @@ class PersonaRequest extends FormRequest
             'per_amaterno.required' => 'EL CAMPO APELLIDO MATERNO ES OBLIGATORIO',
             'per_email.required' => 'EL CAMPO CORREO ES OBLIGATORIO',
             'per_email.email' => 'EL CAMPO CORREO ES INVALIDO',
-            'per_direccion.required' => 'EL CAMPO DIRECCION ES OBLIGATORIO',
             'per_telefonos.required' => 'EL CAMPO TELEFONOS ES OBLIGATORIO'
         ];
     }

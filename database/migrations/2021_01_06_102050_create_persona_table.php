@@ -20,7 +20,6 @@ class CreatePersonaTable extends Migration
             $table->text('per_apaterno');
             $table->text('per_amaterno');
             $table->text('per_email');
-            $table->text('per_direccion');
             $table->text('per_telefonos');
             $table->timestamps();
         });

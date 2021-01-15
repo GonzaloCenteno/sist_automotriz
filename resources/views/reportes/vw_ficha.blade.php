@@ -23,49 +23,48 @@
         <table>
             <tbody>
                 <tr>
-                    <td style="" colspan="1">FACTURAR A</td>
-                    <td style="" class="bordeBajo" colspan="3">: {{ $sql->fic_facturara }}</td>
-                    <td style="" colspan="1">FECHA</td>
-                    <td style="" class="bordeBajo" colspan="3">: {{ $sql->fic_fecha }}</td>
+                    <td style="" colspan="2">FACTURAR A</td>
+                    <td style="" class="bordeBajo" colspan="2">: {{ $sql->fic_facturara }}</td>
+                    <td style="" colspan="2">FECHA</td>
+                    <td style="" class="bordeBajo" colspan="2">: {{ $sql->fic_fecha }}</td>
                 </tr>
                 <tr>
-                    <td style="" colspan="1">PROPIETARIO</td>
-                    <td style="" class="bordeBajo" colspan="3">: {{ $sql->persona->nombreCompleto }}</td>
-                    <td style="" colspan="1">DIRECCION</td>
-                    <td style="" class="bordeBajo" colspan="3">: {{ $sql->persona->per_direccion }}</td>
+                    <td style="" colspan="2">PROPIETARIO</td>
+                    <td style="" class="bordeBajo" colspan="6">: {{ $sql->persona->nombreCompleto }}</td>
                 </tr>
                 <tr>
-                    <td style="" colspan="1">EMAIL</td>
-                    <td style="" class="bordeBajo" colspan="3">: {{ $sql->persona->per_email }}</td>
+                    <td style="" colspan="2">EMAIL</td>
+                    <td style="" class="bordeBajo" colspan="2">: {{ $sql->persona->per_email }}</td>
                     <td class="ordenTrabajo" style="text-align: center" colspan="4">ORDEN DE TRABAJO :</td>
                 </tr>
                 <tr>
-                    <td style="" colspan="1">TELEFONOS</td>
-                    <td style="" class="bordeBajo" colspan="3">: {{ $sql->persona->per_telefonos }}</td>
+                    <td style="" colspan="2">TELEFONOS</td>
+                    <td style="" class="bordeBajo" colspan="2">: {{ $sql->persona->per_telefonos }}</td>
                     <td colspan="1"></td>
-                    <td class="numOrden" style="text-align: left" colspan="3">N° {{ str_pad($sql->fic_id,  6, "0",STR_PAD_LEFT) }}</td>
+                    <td class="numOrden" style="text-align: center" colspan="3">N° {{ str_pad($sql->fic_id,  6, "0",STR_PAD_LEFT) }}</td>
                 </tr>  
                 <tr>
-                    <td style="" colspan="1">MARCA</td>
-                    <td style="" colspan="1" class="bordeBajo">: {{ $sql->fic_marca }}</td>
-                    <td style="" colspan="1">PLACA</td>
-                    <td style="" colspan="1" class="bordeBajo">: {{ $sql->fic_placa }}</td>
-                    <td style="" colspan="1">MODELO</td>
-                    <td style="" colspan="1" class="bordeBajo">: {{ $sql->fic_modelo }}</td>
-                    <td style="" colspan="1">COLOR</td>
-                    <td style="" colspan="1" class="bordeBajo">: {{ $sql->fic_color }}</td>
+                    <td style="" colspan="2">MARCA</td>
+                    <td style="" colspan="2" class="bordeBajo">: {{ $sql->fic_marca }}</td>
+                    <td style="" colspan="2">PLACA</td>
+                    <td style="" colspan="2" class="bordeBajo">: {{ $sql->fic_placa }}</td>
                 </tr>
                 <tr>
-                    <td style="" colspan="1">KM</td>
-                    <td style="" colspan="1" class="bordeBajo">: {{ $sql->fic_km }}</td>
-                    <td style="" colspan="1">N° MOTOR</td>
+                    <td style="" colspan="2">MODELO</td>
+                    <td style="" colspan="2" class="bordeBajo">: {{ $sql->fic_modelo }}</td>
+                    <td style="" colspan="2">COLOR</td>
+                    <td style="" colspan="2" class="bordeBajo">: {{ $sql->fic_color }}</td>
+                </tr>
+                <tr>
+                    <td style="" colspan="2">KM</td>
+                    <td style="" colspan="2" class="bordeBajo">: {{ $sql->fic_km }}</td>
+                    <td style="" colspan="2">N° MOTOR</td>
                     <td style="" colspan="2" class="bordeBajo">: {{ $sql->fic_nmotor }}</td>
-                    <td style="" colspan="3"></td>
                 </tr>
                 <tr>
-                    <td style="" colspan="1">AÑO</td>
-                    <td style="" colspan="1" class="bordeBajo">: {{ $sql->fic_anio }}</td>
-                    <td style="" colspan="1">N° CHASIS</td>
+                    <td style="" colspan="2">AÑO</td>
+                    <td style="" colspan="2" class="bordeBajo">: {{ $sql->fic_anio }}</td>
+                    <td style="" colspan="2">N° CHASIS</td>
                     <td style="" colspan="2" class="bordeBajo">: {{ $sql->fic_nchasis }}</td>
                 </tr>
             </tbody>

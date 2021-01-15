@@ -15,12 +15,20 @@
                 <form id="FormularioCrearRegistro" method="POST" onkeydown="return event.key != 'Enter';" action="{{ route('registro.store') }}" novalidate>
                 @csrf 
                     <div class="row">
-                        <div class="col-12">
+                        <div class="col-9">
                             <div class="form-group" id="cls_fic_facturara">
                                 <label class="control-label">*Facturar a.-</label>
                                 <input type="text" class="form-control text-uppercase" id="fic_facturara" name="fic_facturara" autocomplete="off"/>
                                 <span class="material-icons form-control-feedback">clear</span>
                                 <span class="invalid-feedback" role="alert" id="error_fic_facturara"><strong></strong></span>
+                            </div>
+                        </div>
+                        <div class="col-3">
+                            <div id="cls_fic_adjunto">
+                                <label class="bmd-label-floating">*Adjunto.-</label>
+                                <input type="file" id="fic_adjunto" name="fic_adjunto"/>
+                                <span class="material-icons form-control-feedback">clear</span>
+                                <span class="invalid-feedback" role="alert" id="error_fic_adjunto"><strong></strong></span>
                             </div>
                         </div>
                     </div>
@@ -44,19 +52,13 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-4">
-                            <div class="form-group">
-                                <label class="control-label">*Direccion.-</label>
-                                <input type="text" class="form-control text-uppercase" id="fic_direccion" disabled/>
-                            </div>
-                        </div>
-                        <div class="col-4">
+                        <div class="col-7">
                             <div class="form-group">
                                 <label class="control-label">*E-mail.-</label>
                                 <input type="email" class="form-control text-uppercase" id="fic_email" disabled/>
                             </div>
                         </div>
-                        <div class="col-4">
+                        <div class="col-5">
                             <div class="form-group">
                                 <label class="control-label">*Telefonos.-</label>
                                 <input type="text" class="form-control text-uppercase" id="fic_telefonos" disabled>
@@ -125,7 +127,7 @@
                         <div class="col-3">
                             <div class="form-group" id="cls_fic_nchasis">
                                 <label class="control-label">*N° Chasis.-</label>
-                                <input type="number" class="form-control text-uppercase" id="fic_nchasis" name="fic_nchasis" autocomplete="off"/>
+                                <input type="text" class="form-control text-uppercase" id="fic_nchasis" name="fic_nchasis" autocomplete="off"/>
                                 <span class="material-icons form-control-feedback">clear</span>
                                 <span class="invalid-feedback" role="alert" id="error_fic_nchasis"><strong></strong></span>
                             </div>
@@ -151,7 +153,7 @@
                             <h4><b>INVENTARIO DE VEHICULO</b></h4>
                         </div>
                     </div>
-                    <div class="row pl-lg-5" id="cls_fic_inventariovehiculo">
+                    <div class="row pl-lg-5">
                         @foreach($inventario as $ive)
                         <div class="col-4 col-lg-3">
                             <div class="form-check form-check-inline">
@@ -164,8 +166,6 @@
                             </div>
                         </div>
                         @endforeach
-                        <span class="material-icons form-control-feedback">clear</span>
-                        <span class="invalid-feedback text-center" role="alert" id="error_fic_inventariovehiculo"><strong></strong></span>
                     </div>
                     <hr>
                     <div class="row">
@@ -323,7 +323,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-3">
+                        <div class="col-7">
                             <div class="form-group" id="cls_per_email">
                                 <label class="control-label">*E-mail.-</label>
                                 <input type="text" class="form-control text-uppercase" id="per_email" name="per_email" autocomplete="off"/>
@@ -332,14 +332,6 @@
                             </div>
                         </div>
                         <div class="col-5">
-                            <div class="form-group" id="cls_per_direccion">
-                                <label class="control-label">*Direccion.-</label>
-                                <input type="text" class="form-control text-uppercase" id="per_direccion" name="per_direccion" autocomplete="off"/>
-                                <span class="material-icons form-control-feedback">clear</span>
-                                <span class="invalid-feedback" role="alert" id="error_per_direccion"><strong></strong></span>
-                            </div>
-                        </div>
-                        <div class="col-4">
                             <div class="form-group" id="cls_per_telefonos">
                                 <label class="control-label">*Telefonos.-</label>
                                 <input type="number" class="form-control text-uppercase" id="per_telefonos" name="per_telefonos" autocomplete="off"/>
@@ -369,7 +361,7 @@
     $("#registro").addClass("active");
 
 
-    $("#fic_facturara, #fic_marca, #fic_placa, #fic_modelo, #fic_color, #fic_km, #fic_nmotor, #fic_anio, #fic_nchasis, #fic_trabajosarealizar, #fic_inventariovehiculo, #fic_observaciones, #fic_nivelcombustible, #per_dni, #per_nombres, #per_apaterno, #per_amaterno, #per_email, #per_direccion, #per_telefonos").on('focus', function () {
+    $("#fic_facturara, #fic_marca, #fic_placa, #fic_modelo, #fic_color, #fic_km, #fic_nmotor, #fic_anio, #fic_nchasis, #fic_trabajosarealizar, #fic_observaciones, #fic_nivelcombustible, #per_dni, #per_nombres, #per_apaterno, #per_amaterno, #per_email, #per_telefonos").on('focus', function () {
         limpiarErrores($(this).attr('id')); 
     });
 
@@ -381,12 +373,6 @@
         $("#error_fic_nivelcombustible").hide();
         $("#error_fic_nivelcombustible").text('');
         $("#cls_fic_nivelcombustible").removeClass('has-danger');
-    });
-
-    $('.btn_checkbox').change(function(){
-        $("#error_fic_inventariovehiculo").hide();
-        $("#error_fic_inventariovehiculo").text('');
-        $("#cls_fic_inventariovehiculo").removeClass('has-danger');
     });
 
     $('#FormularioCrearRegistro').submit(function(e){
@@ -407,7 +393,8 @@
             success: function (data) 
             {
                 alertas(4);
-                $(':input','#FormularioCrearRegistro').not(':button, :submit, :reset, :hidden').val('').prop('checked', false).prop('selected', false);
+                $(':input','#FormularioCrearRegistro').not(':button, :submit, :reset, :hidden, :radio').val('');
+                $(':input','#FormularioCrearRegistro').prop('checked', false).prop('selected', false);
                 $('#cls_fic_trabajosarealizar, #cls_per_id', '#FormularioCrearRegistro').removeClass('has-danger');
                 $("#error_fic_trabajosarealizar, #error_per_id").hide();
                 $('#per_id').val('');
@@ -433,7 +420,6 @@
                         {
                             $("#per_id").val(data.per_id).trigger("change");
                             $("#fic_propietario").val(data.per_nombres);
-                            $("#fic_direccion").val(data.per_direccion);
                             $("#fic_email").val(data.per_email);
                             $("#fic_telefonos").val(data.per_telefonos);
                             $("#fic_dni").focus();
@@ -473,7 +459,6 @@
                 limpiarFormularioPersona();
                 $("#per_id").val(data.per_id);
                 $("#fic_propietario").val(data.per_nombres);
-                $("#fic_direccion").val(data.per_direccion);
                 $("#fic_email").val(data.per_email);
                 $("#fic_telefonos").val(data.per_telefonos);
             }
@@ -495,7 +480,6 @@
     {
         $("#per_id").val('');
         $("#fic_propietario").val('');
-        $("#fic_direccion").val('');
         $("#fic_email").val('');
         $("#fic_telefonos").val('');
     }
@@ -506,7 +490,6 @@
         $("#per_amaterno").val('');
         $("#per_apaterno").val('');
         $("#per_email").val('');
-        $("#per_direccion").val('');
         $("#per_telefonos").val('');
     }
 

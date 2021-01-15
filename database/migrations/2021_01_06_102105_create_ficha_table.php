@@ -27,9 +27,10 @@ class CreateFichaTable extends Migration
             $table->text('fic_anio');
             $table->text('fic_nchasis');
             $table->text('fic_trabajosarealizar');
-            $table->text('fic_inventariovehiculo');
+            $table->text('fic_inventariovehiculo')->nullable();
             $table->text('fic_observaciones');
             $table->text('fic_nivelcombustible');
+            $table->text('fic_adjunto')->nullable();
             $table->timestamps();
 
             $table->foreign('per_id')->references('per_id')->on('tblpersona_per');

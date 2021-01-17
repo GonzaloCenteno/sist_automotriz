@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Tblpersona_per;
+use App\User;
 use Illuminate\Support\Str;
 
 class Tblficha_fic extends Model
@@ -12,12 +13,17 @@ class Tblficha_fic extends Model
     protected $primaryKey='fic_id';
 
     protected $fillable = [
-        'fic_facturara','fic_fecha','per_id','fic_marca','fic_placa','fic_modelo','fic_color','fic_km','fic_nmotor','fic_anio','fic_nchasis','fic_trabajosarealizar','fic_inventariovehiculo','fic_observaciones','fic_nivelcombustible','fic_adjunto'
+        'fic_facturara','fic_fecha','per_id','fic_marca','fic_placa','fic_modelo','fic_color','fic_km','fic_nmotor','fic_anio','fic_nchasis','fic_trabajosarealizar','fic_inventariovehiculo','fic_observaciones','fic_nivelcombustible','fic_adjunto','user_id'
     ];
 
     public function persona()
     {
         return $this->hasOne(Tblpersona_per::class,'per_id','per_id');
+    }
+
+    public function usuario()
+    {
+        return $this->hasOne(User::class,'id','user_id');
     }
 
     public function setFicAdjuntoAttribute($imagen){

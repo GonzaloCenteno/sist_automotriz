@@ -15,10 +15,12 @@ class CreatePersonaTable extends Migration
     {
         Schema::create('tblpersona_per', function (Blueprint $table) {
             $table->bigIncrements('per_id');
-            $table->text('per_dni')->unique();
-            $table->text('per_nombres');
-            $table->text('per_apaterno');
-            $table->text('per_amaterno');
+            $table->enum('per_tipodocumento',['DNI','RUC']);
+            $table->text('per_documento')->unique();
+            $table->text('per_razonsocial')->nullable();
+            $table->text('per_nombres')->nullable();
+            $table->text('per_apaterno')->nullable();
+            $table->text('per_amaterno')->nullable();
             $table->text('per_email');
             $table->text('per_telefonos');
             $table->timestamps();

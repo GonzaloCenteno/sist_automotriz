@@ -1,26 +1,38 @@
 @extends('layouts.app')
-@section('title', 'REGISTRO FICHA') 
+@section('title', 'EDITAR FICHA') 
 @section('content')
 <div class="row" id="PaginaCabecera">
     <div class="col">
         <div class="card">
             <div class="card-header card-header-primary" style="background: #383d81">
                 <div class="row align-items-center">
-                    <div class="col-12">
-                        <h4 class="card-title">CREAR FICHA</h4>
+                    <div class="col-3">
+                        <h4 class="card-title">MODIFICAR FICHA</h4>
+                    </div>
+                    <div class="col-5">
+                        <h6 class="mb-0">| HECHO POR: {{ $ficha->usuario->name }} |</h6>
+                    </div>
+                    <div class="col-4">
+                        <h6 class="mb-0">| FECHA Y HORA: {{ $ficha->created_at }} |</h6>
                     </div>
                 </div>
             </div>
             <div class="card-body">
-                <form id="FormularioCrearRegistro" method="POST" onkeydown="return event.key != 'Enter';" action="{{ route('registro.store') }}" novalidate>
-                @csrf 
+                <form id="FormularioModificarRegistro" method="POST" onkeydown="return event.key != 'Enter';" action="{{ route('registro.update', $ficha->fic_id) }}" novalidate>
+                @csrf
+                @method('PUT')
                     <div class="row">
-                        <div class="col-9">
+                        <div class="col-7">
                             <div class="form-group" id="cls_fic_facturara">
                                 <label class="control-label">*Facturar a.-</label>
-                                <input type="text" class="form-control text-uppercase" id="fic_facturara" name="fic_facturara" autocomplete="off"/>
+                                <input type="text" class="form-control text-uppercase" id="fic_facturara" name="fic_facturara" autocomplete="off" value="{{ $ficha->fic_facturara }}" />
                                 <span class="material-icons form-control-feedback">clear</span>
                                 <span class="invalid-feedback" role="alert" id="error_fic_facturara"><strong></strong></span>
+                            </div>
+                        </div>
+                        <div class="col-2">
+                            <div class="form-group">
+                                <button type="button" onClick="descargar_archivo({{ $ficha->fic_id }})" class="btn btn-danger btn-round btn-md pull-right {{ ($ficha->fic_adjunto == null) ? 'disabled' : '' }}"><i class="material-icons">download</i> Descargar</button>
                             </div>
                         </div>
                         <div class="col-3">
@@ -36,16 +48,16 @@
                         <div class="col-4">
                             <div class="form-group" id="cls_fic_documento">
                                 <label class="control-label">*DNI/RUC.-</label>
-                                <input type="number" class="form-control text-uppercase" id="fic_documento" name="fic_documento" autocomplete="off"/>
+                                <input type="number" class="form-control text-uppercase" id="fic_documento" name="fic_documento" autocomplete="off" value="{{ $ficha->persona->per_documento }}"/>
                                 <span class="material-icons form-control-feedback">clear</span>
                                 <span class="invalid-feedback" role="alert" id="error_fic_documento"><strong></strong></span>
                             </div>
                         </div>
                         <div class="col-8">
                             <div class="form-group" id="cls_per_id">
-                                <input type="hidden" id="per_id" name="per_id">
+                                <input type="hidden" id="per_id" name="per_id" value="{{ $ficha->persona->per_id }}">
                                 <label class="control-label">*Propietario.-</label>
-                                <input type="text" class="form-control text-uppercase" id="fic_propietario" disabled/>
+                                <input type="text" class="form-control text-uppercase" id="fic_propietario" disabled value="{{ $ficha->persona->nombre_completo }}"/>
                                 <span class="material-icons form-control-feedback">clear</span>
                                 <span class="invalid-feedback" role="alert" id="error_per_id"><strong></strong></span>
                             </div>
@@ -55,13 +67,13 @@
                         <div class="col-7">
                             <div class="form-group">
                                 <label class="control-label">*E-mail.-</label>
-                                <input type="email" class="form-control text-uppercase" id="fic_email" disabled/>
+                                <input type="email" class="form-control text-uppercase" id="fic_email" disabled value="{{ $ficha->persona->per_email }}" />
                             </div>
                         </div>
                         <div class="col-5">
                             <div class="form-group">
                                 <label class="control-label">*Telefonos.-</label>
-                                <input type="text" class="form-control text-uppercase" id="fic_telefonos" disabled>
+                                <input type="text" class="form-control text-uppercase" id="fic_telefonos" disabled value="{{ $ficha->persona->per_telefonos }}">
                             </div>
                         </div>
                     </div>
@@ -69,7 +81,7 @@
                         <div class="col-3">
                             <div class="form-group" id="cls_fic_marca">
                                 <label class="control-label">*Marca.-</label>
-                                <input type="text" class="form-control text-uppercase" id="fic_marca" name="fic_marca" autocomplete="off"/>
+                                <input type="text" class="form-control text-uppercase" id="fic_marca" name="fic_marca" autocomplete="off" value="{{ $ficha->fic_marca }}" />
                                 <span class="material-icons form-control-feedback">clear</span>
                                 <span class="invalid-feedback" role="alert" id="error_fic_marca"><strong></strong></span>
                             </div>
@@ -77,7 +89,7 @@
                         <div class="col-3">
                             <div class="form-group" id="cls_fic_placa">
                                 <label class="control-label">*Placa.-</label>
-                                <input type="text" class="form-control text-uppercase" id="fic_placa" name="fic_placa" autocomplete="off"/>
+                                <input type="text" class="form-control text-uppercase" id="fic_placa" name="fic_placa" autocomplete="off" value="{{ $ficha->fic_placa }}"/>
                                 <span class="material-icons form-control-feedback">clear</span>
                                 <span class="invalid-feedback" role="alert" id="error_fic_placa"><strong></strong></span>
                             </div>
@@ -85,7 +97,7 @@
                         <div class="col-3">
                             <div class="form-group" id="cls_fic_modelo">
                                 <label class="control-label">*Modelo.-</label>
-                                <input type="text" class="form-control text-uppercase" id="fic_modelo" name="fic_modelo" autocomplete="off"/>
+                                <input type="text" class="form-control text-uppercase" id="fic_modelo" name="fic_modelo" autocomplete="off" value="{{ $ficha->fic_modelo }}"/>
                                 <span class="material-icons form-control-feedback">clear</span>
                                 <span class="invalid-feedback" role="alert" id="error_fic_modelo"><strong></strong></span>
                             </div>
@@ -93,7 +105,7 @@
                         <div class="col-3">
                             <div class="form-group" id="cls_fic_color">
                                 <label class="control-label">*Color.-</label>
-                                <input type="text" class="form-control text-uppercase" id="fic_color" name="fic_color" autocomplete="off"/>
+                                <input type="text" class="form-control text-uppercase" id="fic_color" name="fic_color" autocomplete="off" value="{{ $ficha->fic_color }}"/>
                                 <span class="material-icons form-control-feedback">clear</span>
                                 <span class="invalid-feedback" role="alert" id="error_fic_color"><strong></strong></span>
                             </div>
@@ -103,7 +115,7 @@
                         <div class="col-3">
                             <div class="form-group" id="cls_fic_km">
                                 <label class="control-label">*KM.-</label>
-                                <input type="number" class="form-control text-uppercase" id="fic_km" name="fic_km" autocomplete="off"/>
+                                <input type="number" class="form-control text-uppercase" id="fic_km" name="fic_km" autocomplete="off" value="{{ $ficha->fic_km }}"/>
                                 <span class="material-icons form-control-feedback">clear</span>
                                 <span class="invalid-feedback" role="alert" id="error_fic_km"><strong></strong></span>
                             </div>
@@ -111,7 +123,7 @@
                         <div class="col-3">
                             <div class="form-group" id="cls_fic_nmotor">
                                 <label class="control-label">*N° Motor.-</label>
-                                <input type="number" class="form-control text-uppercase" id="fic_nmotor" name="fic_nmotor" autocomplete="off"/>
+                                <input type="number" class="form-control text-uppercase" id="fic_nmotor" name="fic_nmotor" autocomplete="off" value="{{ $ficha->fic_nmotor }}"/>
                                 <span class="material-icons form-control-feedback">clear</span>
                                 <span class="invalid-feedback" role="alert" id="error_fic_nmotor"><strong></strong></span>
                             </div>
@@ -119,7 +131,7 @@
                         <div class="col-3">
                             <div class="form-group" id="cls_fic_anio">
                                 <label class="control-label">*Año.-</label>
-                                <input type="number" class="form-control text-uppercase" id="fic_anio" name="fic_anio" autocomplete="off"/>
+                                <input type="number" class="form-control text-uppercase" id="fic_anio" name="fic_anio" autocomplete="off" value="{{ $ficha->fic_anio }}"/>
                                 <span class="material-icons form-control-feedback">clear</span>
                                 <span class="invalid-feedback" role="alert" id="error_fic_anio"><strong></strong></span>
                             </div>
@@ -127,7 +139,7 @@
                         <div class="col-3">
                             <div class="form-group" id="cls_fic_nchasis">
                                 <label class="control-label">*N° Chasis.-</label>
-                                <input type="text" class="form-control text-uppercase" id="fic_nchasis" name="fic_nchasis" autocomplete="off"/>
+                                <input type="text" class="form-control text-uppercase" id="fic_nchasis" name="fic_nchasis" autocomplete="off" value="{{ $ficha->fic_nchasis }}"/>
                                 <span class="material-icons form-control-feedback">clear</span>
                                 <span class="invalid-feedback" role="alert" id="error_fic_nchasis"><strong></strong></span>
                             </div>
@@ -141,7 +153,7 @@
                     <div class="row">
                         <div class="col-md-12 text-center">
                             <div class="form-group" id="cls_fic_trabajosarealizar">
-                                <textarea id="fic_trabajosarealizar"></textarea>
+                                <textarea id="fic_trabajosarealizar">{!! $ficha->fic_trabajosarealizar !!}</textarea>
                                 <span class="material-icons form-control-feedback">clear</span>
                                 <span class="invalid-feedback" role="alert" id="error_fic_trabajosarealizar"><strong></strong></span>
                             </div>
@@ -158,7 +170,7 @@
                         <div class="col-4 col-lg-3">
                             <div class="form-check form-check-inline">
                                 <label class="form-check-label">
-                                    <input class="form-check-input btn_checkbox" type="checkbox" id="inlineCheckbox{{ $ive->ive_id }}" name="fic_inventariovehiculo[]" value="{{ $ive->ive_id }}"> {{ $ive->ive_descripcion }}
+                                    <input class="form-check-input btn_checkbox" type="checkbox" id="inlineCheckbox{{ $ive->ive_id }}" name="fic_inventariovehiculo[]" value="{{ $ive->ive_id }}" {{ ($ive->valor == 1) ? 'checked' : '' }} > {{ $ive->ive_descripcion }}
                                     <span class="form-check-sign">
                                         <span class="check"></span>
                                     </span>
@@ -172,7 +184,7 @@
                         <div class="col-md-12">
                             <div class="form-group" id="cls_fic_observaciones">
                                 <label class="control-label">*Observaciones.-</label>
-                                <textarea rows="6" aria-describedby="fic_observaciones" class="form-control text-uppercase" id="fic_observaciones" name="fic_observaciones"></textarea>
+                                <textarea rows="6" aria-describedby="fic_observaciones" class="form-control text-uppercase" id="fic_observaciones" name="fic_observaciones">{{ $ficha->fic_observaciones }}</textarea>
                                 <span class="material-icons form-control-feedback">clear</span>
                                 <span class="invalid-feedback" role="alert" id="error_fic_observaciones"><strong></strong></span>
                             </div>
@@ -188,7 +200,7 @@
                         <div class="col-3 col-lg-1 offset-lg-2">
                             <div class="form-check form-check-radio">
                                 <label class="form-check-label">
-                                    <input class="form-check-input btn_radio" type="radio" id="exampleRadios1" name="fic_nivelcombustible" value="1/8">1/8 
+                                    <input class="form-check-input btn_radio" type="radio" id="exampleRadios1" name="fic_nivelcombustible" value="1/8" {{ $ficha->fic_nivelcombustible == '1/8' ? 'checked' : '' }}>1/8 
                                     <span class="circle">
                                         <span class="check"></span>
                                     </span>
@@ -198,7 +210,7 @@
                         <div class="col-3 col-lg-1">
                             <div class="form-check form-check-radio">
                                 <label class="form-check-label">
-                                    <input class="form-check-input btn_radio" type="radio" id="exampleRadios2" name="fic_nivelcombustible" value="1/4">1/4 
+                                    <input class="form-check-input btn_radio" type="radio" id="exampleRadios2" name="fic_nivelcombustible" value="1/4" {{ $ficha->fic_nivelcombustible == '1/4' ? 'checked' : ''  }}>1/4 
                                     <span class="circle">
                                         <span class="check"></span>
                                     </span>
@@ -208,7 +220,7 @@
                         <div class="col-3 col-lg-1">
                             <div class="form-check form-check-radio">
                                 <label class="form-check-label">
-                                    <input class="form-check-input btn_radio" type="radio" id="exampleRadios3" name="fic_nivelcombustible" value="3/8">3/8 
+                                    <input class="form-check-input btn_radio" type="radio" id="exampleRadios3" name="fic_nivelcombustible" value="3/8" {{ $ficha->fic_nivelcombustible == '3/8' ? 'checked' : ''  }}>3/8 
                                     <span class="circle">
                                         <span class="check"></span>
                                     </span>
@@ -218,7 +230,7 @@
                         <div class="col-3 col-lg-1">
                             <div class="form-check form-check-radio">
                                 <label class="form-check-label">
-                                    <input class="form-check-input btn_radio" type="radio" id="exampleRadios4" name="fic_nivelcombustible" value="1/2">1/2 
+                                    <input class="form-check-input btn_radio" type="radio" id="exampleRadios4" name="fic_nivelcombustible" value="1/2" {{ $ficha->fic_nivelcombustible == '1/2' ? 'checked' : ''  }}>1/2 
                                     <span class="circle">
                                         <span class="check"></span>
                                     </span>
@@ -228,7 +240,7 @@
                         <div class="col-3 col-lg-1">
                             <div class="form-check form-check-radio">
                                 <label class="form-check-label">
-                                    <input class="form-check-input btn_radio" type="radio" id="exampleRadios5" name="fic_nivelcombustible" value="5/8">5/8 
+                                    <input class="form-check-input btn_radio" type="radio" id="exampleRadios5" name="fic_nivelcombustible" value="5/8" {{ $ficha->fic_nivelcombustible == '5/8' ? 'checked' : ''  }}>5/8 
                                     <span class="circle">
                                         <span class="check"></span>
                                     </span>
@@ -238,7 +250,7 @@
                         <div class="col-3 col-lg-1">
                             <div class="form-check form-check-radio">
                                 <label class="form-check-label">
-                                    <input class="form-check-input btn_radio" type="radio" id="exampleRadios6" name="fic_nivelcombustible" value="3/4">3/4 
+                                    <input class="form-check-input btn_radio" type="radio" id="exampleRadios6" name="fic_nivelcombustible" value="3/4" {{ $ficha->fic_nivelcombustible == '3/4' ? 'checked' : ''  }}>3/4 
                                     <span class="circle">
                                         <span class="check"></span>
                                     </span>
@@ -248,7 +260,7 @@
                         <div class="col-3 col-lg-1">
                             <div class="form-check form-check-radio">
                                 <label class="form-check-label">
-                                    <input class="form-check-input btn_radio" type="radio" id="exampleRadios7" name="fic_nivelcombustible" value="7/8">7/8 
+                                    <input class="form-check-input btn_radio" type="radio" id="exampleRadios7" name="fic_nivelcombustible" value="7/8" {{ $ficha->fic_nivelcombustible == '7/8' ? 'checked' : ''  }}>7/8 
                                     <span class="circle">
                                         <span class="check"></span>
                                     </span>
@@ -259,7 +271,8 @@
                         <span class="invalid-feedback text-center" role="alert" id="error_fic_nivelcombustible"><strong></strong></span>
                     </div>
                     <hr>
-                    <button type="submit" class="btn btn-warning btn-round btn-md pull-right"><i class="material-icons">save</i> Guardar Datos</button>
+                    <button type="submit" class="btn btn-warning btn-round btn-md pull-right"><i class="material-icons">edit</i> Modificar Datos</button>
+                    <a href="{{ route('ficha.index') }}" class="btn btn-danger btn-round btn-md pull-right"><i class="material-icons">clear</i> Salir</a>
                     <div class="clearfix"></div>
                 </form>
             </div>
@@ -366,8 +379,7 @@
         CKEDITOR.replace('fic_trabajosarealizar');
     });
 
-    $("#registro").addClass("active");
-
+    $("#fichas").addClass("active");
 
     $("#fic_facturara, #fic_marca, #fic_placa, #fic_modelo, #fic_color, #fic_km, #fic_nmotor, #fic_anio, #fic_nchasis, #fic_trabajosarealizar, #fic_observaciones, #fic_nivelcombustible, #per_documento, #per_nombres, #per_apaterno, #per_amaterno, #per_email, #per_telefonos, #per_razonsocial").on('focus', function () {
         limpiarErrores($(this).attr('id')); 
@@ -383,7 +395,7 @@
         $("#cls_fic_nivelcombustible").removeClass('has-danger');
     });
 
-    $('#FormularioCrearRegistro').submit(function(e){
+    $('#FormularioModificarRegistro').submit(function(e){
         e.preventDefault();
         var FormularioRegistro = new FormData($(this)[0]);
         FormularioRegistro.append('fic_trabajosarealizar', CKEDITOR.instances.fic_trabajosarealizar.getData());
@@ -400,14 +412,7 @@
             contentType: false,
             success: function (data) 
             {
-                alertas(4);
-                $(':input','#FormularioCrearRegistro').not(':button, :submit, :reset, :hidden, :radio').val('');
-                $(':input','#FormularioCrearRegistro').prop('checked', false).prop('selected', false);
-                $('#cls_fic_trabajosarealizar, #cls_per_id', '#FormularioCrearRegistro').removeClass('has-danger');
-                $("#error_fic_trabajosarealizar, #error_per_id").hide();
-                $('#per_id').val('');
-                CKEDITOR.instances['fic_trabajosarealizar'].setData('');
-                document.location.href = "#PaginaCabecera";
+                alertas(2,'ficha');
             }
         });
     });
@@ -488,7 +493,7 @@
                 $("#per_documento").val('');
                 limpiarFormularioPersona();
                 $("#per_id").val(data.per_id);
-                $("#fic_propietario").val(data.nombre_completo);
+                $("#fic_propietario").val(data.per_nombres);
                 $("#fic_email").val(data.per_email);
                 $("#fic_telefonos").val(data.per_telefonos);
                 $("#fic_marca").focus();
@@ -523,6 +528,11 @@
         $("#per_apaterno").val('');
         $("#per_email").val('');
         $("#per_telefonos").val('');
+    }
+
+    function descargar_archivo(fic_id)
+    {
+        window.open('/ficha/'+fic_id+'?donwload=adjunto');
     }
 
 </script>

@@ -84,6 +84,10 @@ class UsuarioController extends Controller
 
     public function edit($id)
     {
+        if(Auth::user()->rol == 'TECNICO')
+        {
+            return redirect('/registro');
+        }
     	return view('usuario.edit', [
             'usuario' => User::where('id',$id)->first()
         ]);

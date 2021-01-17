@@ -26,7 +26,7 @@
                     <td style="" colspan="2">FACTURAR A</td>
                     <td style="" class="bordeBajo" colspan="2">: {{ $sql->fic_facturara }}</td>
                     <td style="" colspan="2">FECHA</td>
-                    <td style="" class="bordeBajo" colspan="2">: {{ $sql->fic_fecha }}</td>
+                    <td style="text-align: center" class="bordeBajo" colspan="2">: {{ $sql->fic_fecha }}</td>
                 </tr>
                 <tr>
                     <td style="" colspan="2">PROPIETARIO</td>

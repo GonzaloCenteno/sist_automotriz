@@ -25,6 +25,10 @@ class FichaController extends Controller
             if($request['reporte'] == 'ficha')
             {
                 return $this->imprimir_reporte_ficha($request, $id);
+            } 
+            if($request['donwload'] == 'adjunto')
+            {
+                return $this->descargar_adjunto($request, $id);
             }   
         }
         else
@@ -42,6 +46,24 @@ class FichaController extends Controller
                 return $this->cargar_tabla_fichas($request);
             }
         }
+    }
+
+    public function edit($id)
+    {
+        $ficha = Tblficha_fic::with('persona')->where('fic_id',$id)->first();
+
+        if($ficha->fic_inventariovehiculo !== null && $ficha->fic_inventariovehiculo !== ''):
+            $inventario = DB::select("SELECT DISTINCT a.ive_id,a.ive_descripcion,
+                                CASE
+                                   WHEN fic_id is null THEN 0
+                                   ELSE 1
+                                END valor from tblinventariovehiculo_ive a
+                                left outer join tblficha_fic b on a.ive_id in (".$ficha->fic_inventariovehiculo.") order by a.ive_id asc");
+        else:
+            $inventario = Tblinventariovehiculo_ive::orderBy('ive_id','asc')->get();
+        endif;
+
+        return view('ficha.edit', compact('ficha','inventario'));
     }
 
     public function cargar_tabla_fichas(Request $request)
@@ -115,7 +137,7 @@ class FichaController extends Controller
             $Lista->rows[$Index]['id'] = $Datos->fic_id;
             $Lista->rows[$Index]['cell'] = array(
                 $Datos->fic_id,
-                '<button class="btn btn-warning btn-sm btn-fab btn-round py-0 my-0" onClick="fn_imprimir('.$Datos->fic_id.')"><i class="material-icons">edit</i></button>',
+                '<a class="btn btn-warning btn-sm btn-fab btn-round py-0 my-0" href="'.route('ficha.edit',$Datos->fic_id).'"><i class="material-icons">edit</i></a>',
                 '<button class="btn btn-default btn-sm btn-fab btn-round py-0 my-0" onClick="fn_imprimir('.$Datos->fic_id.')"><i class="material-icons">print</i></button>',
                 $Datos->fic_facturara,
                 $Datos->persona->NombreCompleto,
@@ -142,7 +164,7 @@ class FichaController extends Controller
             }
             if($desc!="")
             {
-                $consulta.="concat_ws(' ',UPPER(per_nombres),UPPER(per_apaterno),UPPER(per_amaterno),per_dni) like '%$desc%'";
+                $consulta.="concat_ws(' ',UPPER(per_razonsocial),UPPER(per_nombres),UPPER(per_apaterno),UPPER(per_amaterno),per_documento) like '%$desc%'";
             }
             if($iniciador==0)
             {
@@ -155,7 +177,7 @@ class FichaController extends Controller
         foreach ($Consulta as $Datos) {
             $Lista = new \stdClass();
             $Lista->per_id = $Datos->per_id;
-            $Lista->propietario = trim($Datos->per_dni.' - '.$Datos->per_nombres.' '.$Datos->per_apaterno.' '.$Datos->per_amaterno);
+            $Lista->propietario = trim($Datos->per_documento.' - '.$Datos->nombre_completo);
             array_push($todo, $Lista);
         }
         return response()->json($todo);
@@ -181,13 +203,22 @@ class FichaController extends Controller
             return redirect('/registro');
         }
 
-        $sql = Tblficha_fic::where('fic_id',$id)->first();
         $empresa = Tblempresa_emp::first();
-        $data = DB::select("SELECT ive_descripcion FROM tblinventariovehiculo_ive where ive_id in (".$sql->fic_inventariovehiculo.")");
-        foreach ($data as $arr){ 
-            $arr_final[] = $arr->ive_descripcion;
+        $sql = Tblficha_fic::where('fic_id',$id)->first();
+       
+        if($sql->fic_inventariovehiculo !== null && $sql->fic_inventariovehiculo !== '')
+        {
+            $data = DB::select("SELECT ive_descripcion FROM tblinventariovehiculo_ive where ive_id in (".$sql->fic_inventariovehiculo.")");
+            foreach ($data as $arr){ 
+                $arr_final[] = $arr->ive_descripcion;
+            }
+            $inventario = implode(' - ', $arr_final);
         }
-        $inventario = implode( ' - ', $arr_final);
+        else
+        {
+            $inventario = 'NO HAY DATOS PARA MOSTRAR';
+        }
+        
         if ($sql->count() > 0) 
         {
             $view = \View::make('reportes.vw_ficha',compact('sql','empresa','inventario'))->render();
@@ -198,6 +229,19 @@ class FichaController extends Controller
         else
         {
             return "NO SE ENCONTRARON DATOS";
+        }
+    }
+
+    public function descargar_adjunto(Request $request, $fic_id)
+    {
+        $archivo = Tblficha_fic::where('fic_id',$fic_id)->first();
+        if (file_exists(public_path('adjuntos/' . $archivo->fic_adjunto))) 
+        {
+            return \Storage::download($archivo->fic_adjunto);
+        }
+        else 
+        {
+            return "EL ARCHIVO NO EXISTE, O FUE ELIMINADO";
         }
     }
 

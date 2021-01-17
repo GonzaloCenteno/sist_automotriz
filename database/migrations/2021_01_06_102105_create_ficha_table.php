@@ -31,9 +31,11 @@ class CreateFichaTable extends Migration
             $table->text('fic_observaciones');
             $table->text('fic_nivelcombustible');
             $table->text('fic_adjunto')->nullable();
+            $table->bigInteger('user_id')->unsigned();
             $table->timestamps();
 
             $table->foreign('per_id')->references('per_id')->on('tblpersona_per');
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 

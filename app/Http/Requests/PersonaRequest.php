@@ -24,10 +24,12 @@ class PersonaRequest extends FormRequest
     public function rules()
     {
         return [
-            'per_dni' => 'required|numeric|unique:tblpersona_per|digits_between:8,8',
-            'per_nombres' => 'required',
-            'per_apaterno' => 'required',
-            'per_amaterno' => 'required',
+            'per_documento' => 'required|numeric|unique:tblpersona_per|digits_between:'.$this->get('count').','.$this->get('count'),
+            'per_tipodocumento' => 'required',
+            'per_razonsocial' => $this->get('per_tipodocumento') == 'DNI' ? 'sometimes' : 'required',
+            'per_nombres' => $this->get('per_tipodocumento') == 'RUC' ? 'sometimes' : 'required',
+            'per_apaterno' => $this->get('per_tipodocumento') == 'RUC' ? 'sometimes' : 'required',
+            'per_amaterno' => $this->get('per_tipodocumento') == 'RUC' ? 'sometimes' : 'required',
             'per_email' => 'required|email',
             'per_telefonos' => 'required'
         ];
@@ -36,16 +38,18 @@ class PersonaRequest extends FormRequest
     public function messages()
     {
         return [
-            'per_dni.required' => 'EL CAMPO DNI ES OBLIGATORIO',
-            'per_dni.digits_between' => 'EL CAMPO DNI DEBE TENER 8',
-            'per_dni.numeric' => 'EL CAMPO DNI DEBE SER UN NUMERO',
-            'per_dni.unique' => 'ESTE REGISTRO YA FUE INGRESADO',
+            'per_documento.required' => 'EL CAMPO DNI ES OBLIGATORIO',
+            'per_documento.digits_between' => 'EL CAMPO DNI DEBE TENER '.$this->get('count').' CARACTERES',
+            'per_documento.numeric' => 'EL CAMPO DNI DEBE SER UN NUMERO',
+            'per_documento.unique' => 'ESTE REGISTRO YA FUE INGRESADO',
             'per_nombres.required' => 'EL CAMPO NOMBRES ES OBLIGATORIO',
             'per_apaterno.required' => 'EL CAMPO APELLIDO PATERNO ES OBLIGATORIO',
             'per_amaterno.required' => 'EL CAMPO APELLIDO MATERNO ES OBLIGATORIO',
             'per_email.required' => 'EL CAMPO CORREO ES OBLIGATORIO',
             'per_email.email' => 'EL CAMPO CORREO ES INVALIDO',
-            'per_telefonos.required' => 'EL CAMPO TELEFONOS ES OBLIGATORIO'
+            'per_telefonos.required' => 'EL CAMPO TELEFONOS ES OBLIGATORIO',
+            'per_tipodocumento.required' => 'EL CAMPO TIPO DOCUMENTO ES OBLIGATORIO',
+            'per_razonsocial.required' => 'EL CAMPO RAZON SOCIAL ES OBLIGATORIO'
         ];
     }
 }

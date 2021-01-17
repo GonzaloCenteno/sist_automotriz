@@ -10,13 +10,25 @@ class Tblpersona_per extends Model
     protected $primaryKey='per_id';
 
     protected $fillable = [
-        'per_dni','per_nombres','per_apaterno','per_amaterno','per_email','per_direccion','per_telefonos'
+        'per_tipodocumento','per_documento','per_razonsocial','per_nombres','per_apaterno','per_amaterno','per_email','per_direccion','per_telefonos'
     ];
+
+    protected $appends = ['nombre_completo'];
 
     public function getNombreCompletoAttribute()
     {
-        return $this->attributes['per_nombres'].' '.$this->attributes['per_apaterno'].' '.$this->attributes['per_amaterno'];
+    	//return $this->attributes['per_tipodocumento'] == 'DNI'; //some logic to return numbers -> RETURN TRUE
+    	if($this->attributes['per_tipodocumento'] == 'DNI'):
+    		return $this->attributes['per_nombres'].' '.$this->attributes['per_apaterno'].' '.$this->attributes['per_amaterno'];
+    	else:
+    		return $this->attributes['per_razonsocial'];
+		endif;
     }
+
+    public function setPerRazonsocialAttribute($value)
+	{
+	    $this->attributes['per_razonsocial'] = strtoupper($value);
+	}
 
     public function setPerNombresAttribute($value)
 	{

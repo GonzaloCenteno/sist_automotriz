@@ -100,6 +100,9 @@
         if ($(this).val().length == 0) 
         {
             $("#propietario").val('');
+            jQuery("#tabla_fichas").jqGrid('setGridParam', {
+                url: 'ficha/0?grid=fichas&propietario=0&placa=0&fecha_inicio=0&fecha_fin=0'
+            }).trigger('reloadGrid');
         }
     });
 
@@ -133,7 +136,7 @@
                 error:function()
                 {
                     $('#contenedor_propietario').unblock();
-                    mensajes_sistema(5);
+                    alertas(5);
                 }
             });
         },
@@ -159,6 +162,9 @@
         if ($(this).val().length == 0) 
         {
             $("#placa").val('');
+            jQuery("#tabla_fichas").jqGrid('setGridParam', {
+                url: 'ficha/0?grid=fichas&propietario=0&placa=0&fecha_inicio=0&fecha_fin=0'
+            }).trigger('reloadGrid');
         }
     });
 

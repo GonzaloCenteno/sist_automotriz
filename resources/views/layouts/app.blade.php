@@ -34,7 +34,7 @@
             <div class="wrapper">
                 <div class="sidebar" data-color="purple" data-background-color="white">
                     <div class="logo">
-                        <a href="http://www.creative-tim.com" class="simple-text logo-normal">
+                        <a href="#" class="simple-text logo-normal">
                             MGC AUTOMOTRIZ
                         </a>
                     </div>

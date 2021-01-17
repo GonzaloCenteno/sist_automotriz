@@ -22,33 +22,17 @@ class PersonaController extends Controller
     public function store(PersonaRequest $request)
     {
         if(!$request->ajax()) return redirect('/');
-        $persona = Tblpersona_per::create($request->all());
-        return response()->json([
-            'per_id' => $persona->per_id,
-            'per_nombres' => $persona->NombreCompleto,
-            'per_direccion' => $persona->per_direccion,
-            'per_email' => $persona->per_email,
-            'per_telefonos' => $persona->per_telefonos
-        ]);
+        return Tblpersona_per::create($request->all());
     }
 
-    public function show(Request $request,$per_dni)
+    public function show(Request $request,$per_documento)
     {
-        $persona = Tblpersona_per::where('per_dni',$per_dni)->first();
-        if($persona)
-        {
-            return response()->json([
-                'per_id' => $persona->per_id,
-                'per_nombres' => $persona->NombreCompleto,
-                'per_direccion' => $persona->per_direccion,
-                'per_email' => $persona->per_email,
-                'per_telefonos' => $persona->per_telefonos
-            ]);
-        }
-        else
-        {
+        $persona = Tblpersona_per::where('per_documento',$per_documento)->first();
+        if($persona):
+            return $persona;
+        else:
             return 0;
-        }
+        endif;
     }
 
     public function edit($id)

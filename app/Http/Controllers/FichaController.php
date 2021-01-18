@@ -25,10 +25,6 @@ class FichaController extends Controller
             if($request['reporte'] == 'ficha')
             {
                 return $this->imprimir_reporte_ficha($request, $id);
-            } 
-            if($request['donwload'] == 'adjunto')
-            {
-                return $this->descargar_adjunto($request, $id);
             }   
         }
         else
@@ -235,9 +231,9 @@ class FichaController extends Controller
     public function descargar_adjunto(Request $request, $fic_id)
     {
         $archivo = Tblficha_fic::where('fic_id',$fic_id)->first();
-        if (file_exists(public_path('adjuntos/' . $archivo->fic_adjunto))) 
+        if (file_exists(public_path($archivo->fic_adjunto))) 
         {
-            return \Storage::download($archivo->fic_adjunto);
+            return \Response::download($archivo->fic_adjunto);
         }
         else 
         {

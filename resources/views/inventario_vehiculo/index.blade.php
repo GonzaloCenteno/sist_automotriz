@@ -36,11 +36,12 @@
         height: '400px', autowidth: true,
         toolbarfilter: true,
         forceFit:true,  
-        colNames: ['#','DESCRIPCION'],
+        colNames: ['#','DESCRIPCION','ELIMINAR'],
         rowNum: 20, sortname: 'ive_id', sortorder: 'asc', viewrecords: true, caption: 'LISTADO INVENTARIO', align: "center",
         colModel: [
-            {name: 'ive_id', index: 'ive_id', align: 'center',width: 2},
-            {name: 'ive_descripcion', index: 'ive_descripcion', align: 'left', width: 20},
+            {name: 'ive_id', index: 'ive_id', align: 'center',width: 6},
+            {name: 'ive_descripcion', index: 'ive_descripcion', align: 'left', width: 80},
+            {name: 'btn_eliminar', index: 'btn_eliminar', align: 'center', width: 10, sortable:false}
         ],
         pager: '#paginador_tabla_inventario_vehiculo',
         rowList: [20, 30, 40, 50],
@@ -62,6 +63,26 @@
     $(window).on('resize.jqGrid', function () {
         $("#tabla_inventario_vehiculo").jqGrid('setGridWidth', $("#contenedor").width());
     });
+
+    function fn_eliminar_inventario(ive_id)
+    {
+        $.ajax({
+            url: 'inventario_vehiculo/destroy',
+            type: 'POST',
+            data:
+            {
+                _method: 'delete',
+                ive_id:ive_id
+            },
+            success: function(data) 
+            {
+                jQuery("#tabla_inventario_vehiculo").jqGrid('setGridParam', {
+                    url: 'inventario_vehiculo/1'
+                }).trigger('reloadGrid');
+                swal.close();
+            }
+        });
+    }
 
 </script>
 

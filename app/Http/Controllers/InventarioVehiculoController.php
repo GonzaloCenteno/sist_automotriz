@@ -58,7 +58,8 @@ class InventarioVehiculoController extends Controller
             $Lista->rows[$Index]['id'] = $Datos->ive_id;
             $Lista->rows[$Index]['cell'] = array(
                 $Datos->ive_id,
-                $Datos->ive_descripcion
+                $Datos->ive_descripcion,
+                '<button class="btn btn-danger btn-sm btn-fab btn-round py-0 my-0" onClick="fn_eliminar_inventario('.$Datos->ive_id.')"><i class="material-icons">clear</i></button>',
             );
         }
         return response()->json($Lista);

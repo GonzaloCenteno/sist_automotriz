@@ -32,7 +32,7 @@
                         </div>
                         <div class="col-2">
                             <div class="form-group">
-                                <button type="button" onClick="descargar_archivo({{ $ficha->fic_id }})" class="btn btn-danger btn-round btn-md pull-right {{ ($ficha->fic_adjunto == null) ? 'disabled' : '' }}"><i class="material-icons">download</i> Descargar</button>
+                                <a type="button" href="{{ route('download',$ficha->fic_id) }}" class="btn btn-danger btn-round text-white btn-md pull-right {{ ($ficha->fic_adjunto == null) ? 'disabled' : '' }}"><i class="material-icons">download</i> Descargar</a>
                             </div>
                         </div>
                         <div class="col-3">

@@ -3,28 +3,28 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Tblinventariovehiculo_ive;
-use App\Http\Requests\InventarioVehiculoRequest;
+use App\Models\Tblmaterial_mat;
+use App\Http\Requests\MaterialRequest;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
-class InventarioVehiculoController extends Controller
+class MaterialController extends Controller
 {
     public function index()
     {
-        return view('inventario_vehiculo.index');
+        return view('material.index');
     }
 
     public function create()
     {
-        return view('inventario_vehiculo.create');
+        return view('material.create');
     }
 
-    public function store(InventarioVehiculoRequest $request)
+    public function store(MaterialRequest $request)
     {
         if(!$request->ajax()) return redirect('/');
-        $inventario = Tblinventariovehiculo_ive::create($request->all());
-        return $inventario->ive_id;
+        $material = Tblmaterial_mat::create($request->all());
+        return $material->mat_id;
     }
 
     public function show(Request $request,$id)
@@ -37,8 +37,8 @@ class InventarioVehiculoController extends Controller
         if ($start < 0) {
             $start = 0;
         }
-        $totalg = Tblinventariovehiculo_ive::count();
-        $sql = Tblinventariovehiculo_ive::orderBY($sidx,$sord)->limit($limit)->offset($start)->get();
+        $totalg = Tblmaterial_mat::count();
+        $sql = Tblmaterial_mat::orderBY($sidx,$sord)->limit($limit)->offset($start)->get();
 
         $total_pages = 0;
         if (!$sidx) {
@@ -56,11 +56,11 @@ class InventarioVehiculoController extends Controller
         $Lista->total = $total_pages;
         $Lista->records = $count;
         foreach ($sql as $Index => $Datos) {
-            $Lista->rows[$Index]['id'] = $Datos->ive_id;
+            $Lista->rows[$Index]['id'] = $Datos->mat_id;
             $Lista->rows[$Index]['cell'] = array(
-                $Datos->ive_id,
-                $Datos->ive_descripcion,
-                '<button class="btn btn-danger btn-sm btn-fab btn-round py-0 my-0" onClick="fn_eliminar_inventario('.$Datos->ive_id.')"><i class="material-icons">clear</i></button>',
+                $Datos->mat_id,
+                $Datos->mat_descripcion,
+                '<button class="btn btn-danger btn-sm btn-fab btn-round py-0 my-0" onClick="fn_eliminar_material('.$Datos->mat_id.')"><i class="material-icons">clear</i></button>',
             );
         }
         return response()->json($Lista);
@@ -72,20 +72,20 @@ class InventarioVehiculoController extends Controller
         {
             return redirect('/registro');
         }
-    	return view('inventario_vehiculo.edit', [
-            'inventario' => Tblinventariovehiculo_ive::where('ive_id',$id)->first()
+    	return view('material.edit', [
+            'material' => Tblmaterial_mat::where('mat_id',$id)->first()
         ]);
     }
 
-    public function update(InventarioVehiculoRequest $request, $ive_id)
+    public function update(MaterialRequest $request, $mat_id)
     {
-        $inventario = Tblinventariovehiculo_ive::find($ive_id);
-        $inventario->update($request->all());
-        return $inventario->ive_id;
+        $material = Tblmaterial_mat::find($mat_id);
+        $material->update($request->all());
+        return $material->mat_id;
     }
 
     public function destroy(Request $request)
     {
-        return Tblinventariovehiculo_ive::where('ive_id',$request['ive_id'])->delete();
+        return Tblmaterial_mat::where('mat_id',$request['mat_id'])->delete();
     }
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Tblficha_fic;
+use App\Models\Tblmaterial_mat;
 use App\Models\Tblinventariovehiculo_ive;
 use App\Http\Requests\FichaRequest;
 use Illuminate\Support\Facades\DB;
@@ -14,7 +15,8 @@ class RegistroController extends Controller
     public function index()
     {
         return view('registro.index', [
-            'inventario' => Tblinventariovehiculo_ive::orderBy('ive_id','asc')->get()
+            'inventario' => Tblinventariovehiculo_ive::orderBy('ive_id','asc')->get(),
+            'material' => Tblmaterial_mat::orderBy('mat_id','asc')->get()
         ]);
     }
 

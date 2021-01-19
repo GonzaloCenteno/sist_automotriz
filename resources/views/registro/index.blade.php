@@ -17,7 +17,7 @@
                     <div class="row">
                         <div class="col-9">
                             <div class="form-group" id="cls_fic_facturara">
-                                <label class="control-label">*Facturar a.-</label>
+                                <label class="control-label">*FACTURAR A.-</label>
                                 <input type="text" class="form-control text-uppercase" id="fic_facturara" name="fic_facturara" autocomplete="off"/>
                                 <span class="material-icons form-control-feedback">clear</span>
                                 <span class="invalid-feedback" role="alert" id="error_fic_facturara"><strong></strong></span>
@@ -25,7 +25,7 @@
                         </div>
                         <div class="col-3">
                             <div id="cls_fic_adjunto">
-                                <label class="bmd-label-floating">*Adjunto.-</label>
+                                <label class="bmd-label-floating">*ADJUNTO.-</label>
                                 <input type="file" id="fic_adjunto" name="fic_adjunto"/>
                                 <span class="material-icons form-control-feedback">clear</span>
                                 <span class="invalid-feedback" role="alert" id="error_fic_adjunto"><strong></strong></span>
@@ -44,7 +44,7 @@
                         <div class="col-8">
                             <div class="form-group" id="cls_per_id">
                                 <input type="hidden" id="per_id" name="per_id">
-                                <label class="control-label">*Propietario.-</label>
+                                <label class="control-label">*PROPIETARIO.-</label>
                                 <input type="text" class="form-control text-uppercase" id="fic_propietario" disabled/>
                                 <span class="material-icons form-control-feedback">clear</span>
                                 <span class="invalid-feedback" role="alert" id="error_per_id"><strong></strong></span>
@@ -54,13 +54,13 @@
                     <div class="row">
                         <div class="col-7">
                             <div class="form-group">
-                                <label class="control-label">*E-mail.-</label>
+                                <label class="control-label">*E-MAIL.-</label>
                                 <input type="email" class="form-control text-uppercase" id="fic_email" disabled/>
                             </div>
                         </div>
                         <div class="col-5">
                             <div class="form-group">
-                                <label class="control-label">*Telefonos.-</label>
+                                <label class="control-label">*TELEFONOS.-</label>
                                 <input type="text" class="form-control text-uppercase" id="fic_telefonos" disabled>
                             </div>
                         </div>
@@ -68,7 +68,7 @@
                     <div class="row">
                         <div class="col-3">
                             <div class="form-group" id="cls_fic_marca">
-                                <label class="control-label">*Marca.-</label>
+                                <label class="control-label">*MARCA.-</label>
                                 <input type="text" class="form-control text-uppercase" id="fic_marca" name="fic_marca" autocomplete="off"/>
                                 <span class="material-icons form-control-feedback">clear</span>
                                 <span class="invalid-feedback" role="alert" id="error_fic_marca"><strong></strong></span>
@@ -76,7 +76,7 @@
                         </div>
                         <div class="col-3">
                             <div class="form-group" id="cls_fic_placa">
-                                <label class="control-label">*Placa.-</label>
+                                <label class="control-label">*PLACA.-</label>
                                 <input type="text" class="form-control text-uppercase" id="fic_placa" name="fic_placa" autocomplete="off"/>
                                 <span class="material-icons form-control-feedback">clear</span>
                                 <span class="invalid-feedback" role="alert" id="error_fic_placa"><strong></strong></span>
@@ -84,7 +84,7 @@
                         </div>
                         <div class="col-3">
                             <div class="form-group" id="cls_fic_modelo">
-                                <label class="control-label">*Modelo.-</label>
+                                <label class="control-label">*MODELO.-</label>
                                 <input type="text" class="form-control text-uppercase" id="fic_modelo" name="fic_modelo" autocomplete="off"/>
                                 <span class="material-icons form-control-feedback">clear</span>
                                 <span class="invalid-feedback" role="alert" id="error_fic_modelo"><strong></strong></span>
@@ -92,7 +92,7 @@
                         </div>
                         <div class="col-3">
                             <div class="form-group" id="cls_fic_color">
-                                <label class="control-label">*Color.-</label>
+                                <label class="control-label">*COLOR.-</label>
                                 <input type="text" class="form-control text-uppercase" id="fic_color" name="fic_color" autocomplete="off"/>
                                 <span class="material-icons form-control-feedback">clear</span>
                                 <span class="invalid-feedback" role="alert" id="error_fic_color"><strong></strong></span>
@@ -110,7 +110,7 @@
                         </div>
                         <div class="col-3">
                             <div class="form-group" id="cls_fic_nmotor">
-                                <label class="control-label">*N° Motor.-</label>
+                                <label class="control-label">*N° MOTOR.-</label>
                                 <input type="number" class="form-control text-uppercase" id="fic_nmotor" name="fic_nmotor" autocomplete="off"/>
                                 <span class="material-icons form-control-feedback">clear</span>
                                 <span class="invalid-feedback" role="alert" id="error_fic_nmotor"><strong></strong></span>
@@ -118,7 +118,7 @@
                         </div>
                         <div class="col-3">
                             <div class="form-group" id="cls_fic_anio">
-                                <label class="control-label">*Año.-</label>
+                                <label class="control-label">*AÑO.-</label>
                                 <input type="number" class="form-control text-uppercase" id="fic_anio" name="fic_anio" autocomplete="off"/>
                                 <span class="material-icons form-control-feedback">clear</span>
                                 <span class="invalid-feedback" role="alert" id="error_fic_anio"><strong></strong></span>
@@ -126,7 +126,7 @@
                         </div>
                         <div class="col-3">
                             <div class="form-group" id="cls_fic_nchasis">
-                                <label class="control-label">*N° Chasis.-</label>
+                                <label class="control-label">*N° CHASIS.-</label>
                                 <input type="text" class="form-control text-uppercase" id="fic_nchasis" name="fic_nchasis" autocomplete="off"/>
                                 <span class="material-icons form-control-feedback">clear</span>
                                 <span class="invalid-feedback" role="alert" id="error_fic_nchasis"><strong></strong></span>
@@ -148,25 +148,50 @@
                         </div>
                     </div>
                     <hr>
-                    <div class="row">
-                        <div class="col-md-12 text-center">
-                            <h4><b>INVENTARIO DE VEHICULO</b></h4>
-                        </div>
-                    </div>
-                    <div class="row pl-lg-5">
-                        @foreach($inventario as $ive)
-                        <div class="col-4 col-lg-3">
-                            <div class="form-check form-check-inline">
-                                <label class="form-check-label">
-                                    <input class="form-check-input btn_checkbox" type="checkbox" id="inlineCheckbox{{ $ive->ive_id }}" name="fic_inventariovehiculo[]" value="{{ $ive->ive_id }}"> {{ $ive->ive_descripcion }}
-                                    <span class="form-check-sign">
-                                        <span class="check"></span>
-                                    </span>
-                                </label>
+                    @if(Auth::user()->rol == 'TECNICO')
+                        <table class="table table-xs table-hover table-bordered">
+                            <thead>
+                                <tr>
+                                    <th class="text-center"><h4><b>MATERIALES UTILIZADOS</b></h4></th>
+                                    <th class="text-center"><h4><b>TIPO O GRADO</b></h4></th>
+                                    <th class="text-center"><h4><b>CANTIDAD</b></h4></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($material as $mat)
+                                    <tr>
+                                        <td>{{ $mat->mat_descripcion }}</td>
+                                        <td>
+                                            <input type="text" class="form-control text-uppercase text-center" name="fma_tipo[]" autocomplete="off"/>
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control text-uppercase text-center" name="fma_cantidad[]" autocomplete="off"/>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    @else
+                        <div class="row">
+                            <div class="col-md-12 text-center">
+                                <h4><b>INVENTARIO DE VEHICULO</b></h4>
                             </div>
                         </div>
-                        @endforeach
-                    </div>
+                        <div class="row pl-lg-5">
+                            @foreach($inventario as $ive)
+                            <div class="col-4 col-lg-3">
+                                <div class="form-check form-check-inline">
+                                    <label class="form-check-label">
+                                        <input class="form-check-input btn_checkbox" type="checkbox" id="inlineCheckbox{{ $ive->ive_id }}" name="fic_inventariovehiculo[]" value="{{ $ive->ive_id }}"> {{ $ive->ive_descripcion }}
+                                        <span class="form-check-sign">
+                                            <span class="check"></span>
+                                        </span>
+                                    </label>
+                                </div>
+                            </div>
+                            @endforeach
+                        </div>
+                    @endif
                     <hr>
                     <div class="row">
                         <div class="col-md-12">
@@ -283,7 +308,7 @@
                 </div>
             </div>
             <div class="card-body">
-                <p class="card-category text-center">Completar la Siguiente Informacion</p>
+                <p class="card-category text-center">COMPLETAR LA SIGUIENTE INFORMACION</p>
                 <form id="FormularioCrearPersona" method="POST" action="{{ route('persona.store') }}" novalidate>
                     @csrf
                     <div class="row">
@@ -297,7 +322,7 @@
                         </div>
                         <div class="col-9 informacion_empresa">
                             <div class="form-group" id="cls_per_razonsocial">
-                                <label class="control-label">*Razon Social.-</label>
+                                <label class="control-label">*RAZON SOCIAL.-</label>
                                 <input type="text" class="form-control text-uppercase" id="per_razonsocial" name="per_razonsocial" autocomplete="off"/>
                                 <span class="material-icons form-control-feedback">clear</span>
                                 <span class="invalid-feedback" role="alert" id="error_per_razonsocial"><strong></strong></span>
@@ -305,7 +330,7 @@
                         </div>
                         <div class="col-9 informacion_persona">
                             <div class="form-group" id="cls_per_nombres">
-                                <label class="control-label">*Nombres.-</label>
+                                <label class="control-label">*NOMBRES.-</label>
                                 <input type="text" class="form-control text-uppercase" id="per_nombres" name="per_nombres" autocomplete="off"/>
                                 <span class="material-icons form-control-feedback">clear</span>
                                 <span class="invalid-feedback" role="alert" id="error_per_nombres"><strong></strong></span>
@@ -315,7 +340,7 @@
                     <div class="row informacion_persona">
                         <div class="col-6">
                             <div class="form-group" id="cls_per_apaterno">
-                                <label class="control-label">*Apellido Paterno.-</label>
+                                <label class="control-label">*APELLIDO PATERNO.-</label>
                                 <input type="text" class="form-control text-uppercase" id="per_apaterno" name="per_apaterno" autocomplete="off"/>
                                 <span class="material-icons form-control-feedback">clear</span>
                                 <span class="invalid-feedback" role="alert" id="error_per_apaterno"><strong></strong></span>
@@ -323,7 +348,7 @@
                         </div>
                         <div class="col-6">
                             <div class="form-group" id="cls_per_amaterno">
-                                <label class="control-label">*Apellido Materno.-</label>
+                                <label class="control-label">*APELLIDO MATERNO.-</label>
                                 <input type="text" class="form-control text-uppercase" id="per_amaterno" name="per_amaterno" autocomplete="off"/>
                                 <span class="material-icons form-control-feedback">clear</span>
                                 <span class="invalid-feedback" role="alert" id="error_per_amaterno"><strong></strong></span>
@@ -333,7 +358,7 @@
                     <div class="row">
                         <div class="col-7">
                             <div class="form-group" id="cls_per_email">
-                                <label class="control-label">*E-mail.-</label>
+                                <label class="control-label">*E-MAIL.-</label>
                                 <input type="text" class="form-control text-uppercase" id="per_email" name="per_email" autocomplete="off"/>
                                 <span class="material-icons form-control-feedback">clear</span>
                                 <span class="invalid-feedback" role="alert" id="error_per_email"><strong></strong></span>
@@ -341,7 +366,7 @@
                         </div>
                         <div class="col-5">
                             <div class="form-group" id="cls_per_telefonos">
-                                <label class="control-label">*Telefonos.-</label>
+                                <label class="control-label">*TELEFONOS.-</label>
                                 <input type="number" class="form-control text-uppercase" id="per_telefonos" name="per_telefonos" autocomplete="off"/>
                                 <span class="material-icons form-control-feedback">clear</span>
                                 <span class="invalid-feedback" role="alert" id="error_per_telefonos"><strong></strong></span>

@@ -66,6 +66,12 @@
                                     <p>INVENTARIO VEHICULO</p>
                                 </a>
                             </li>
+                            <li class="nav-item" id="material">
+                                <a class="nav-link" href="{{ route('material.index') }}">
+                                    <i class="material-icons">construction</i>
+                                    <p>MATERIALES</p>
+                                </a>
+                            </li>
                             <li class="nav-item" id="registro">
                                 <a class="nav-link" href="{{ route('registro.index') }}">
                                     <i class="material-icons">create</i>

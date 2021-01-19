@@ -46,6 +46,11 @@ class FichaController extends Controller
 
     public function edit($id)
     {
+        if(Auth::user()->rol == 'TECNICO')
+        {
+            return redirect('/registro');
+        }
+        
         $ficha = Tblficha_fic::with('persona')->where('fic_id',$id)->first();
 
         if($ficha->fic_inventariovehiculo !== null && $ficha->fic_inventariovehiculo !== ''):

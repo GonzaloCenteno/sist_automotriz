@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateInventarioVehiculoTable extends Migration
+class CreateMaterialTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,9 @@ class CreateInventarioVehiculoTable extends Migration
      */
     public function up()
     {
-        Schema::create('tblinventariovehiculo_ive', function (Blueprint $table) {
-            $table->bigIncrements('ive_id');
-            $table->text('ive_descripcion')->unique();
+        Schema::create('tblmaterial_mat', function (Blueprint $table) {
+            $table->bigIncrements('mat_id');
+            $table->text('mat_descripcion')->unique();
             $table->timestamps();
             $table->softDeletes();
         });
@@ -28,6 +28,6 @@ class CreateInventarioVehiculoTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tblinventariovehiculo_ive');
+        Schema::dropIfExists('tblmaterial_mat');
     }
 }

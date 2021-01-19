@@ -162,6 +162,7 @@
                                     <tr>
                                         <td>{{ $mat->mat_descripcion }}</td>
                                         <td>
+                                            <input type="hidden" name="mat_id[]" value="{{ $mat->mat_id }}">
                                             <input type="text" class="form-control text-uppercase text-center" name="fma_tipo[]" autocomplete="off"/>
                                         </td>
                                         <td>

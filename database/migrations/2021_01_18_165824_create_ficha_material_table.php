@@ -16,8 +16,8 @@ class CreateFichaMaterialTable extends Migration
         Schema::create('tblfichamaterial_fma', function (Blueprint $table) {
             $table->bigInteger('fic_id')->unsigned()->required();
             $table->bigInteger('mat_id')->unsigned()->required();
-            $table->text('fma_tipo');
-            $table->text('fma_cantidad');
+            $table->text('fma_tipo')->nullable()->default('0');
+            $table->text('fma_cantidad')->nullable()->default('0');
 
             $table->foreign('fic_id')->references('fic_id')->on('tblficha_fic');
             $table->foreign('mat_id')->references('mat_id')->on('tblmaterial_mat');

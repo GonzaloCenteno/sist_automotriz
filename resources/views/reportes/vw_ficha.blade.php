@@ -79,6 +79,28 @@
                 </tr>
             </tbody>
         </table>
+        <table class="tablaBordes">
+            <thead>
+                <tr>
+                    <th style="text-align: center" class="tituloTrabajosaRealizar">MATERIALES UTILIZADOS</th>
+                    <th style="text-align: center" class="tituloTrabajosaRealizar">TIPO O GRADO</th>
+                    <th style="text-align: center" class="tituloTrabajosaRealizar">CANTIDAD</th>
+                </tr>
+            </thead>
+            <tbody>
+                @forelse($materiales as $mat)
+                    <tr>
+                        <td style="border: 1px solid #000;">{{ $mat->materiales[0]->mat_descripcion }}</td>
+                        <td style="text-align: center;border: 1px solid #000;">{{ $mat->fma_tipo }}</td>
+                        <td style="text-align: center;border: 1px solid #000;">{{ $mat->fma_cantidad }}</td>
+                    </tr>
+                @empty
+                    <tr>
+                        <td style="text-align: center;border: 1px solid #000;" colspan="3">NO TIENE MATERIALES ASIGNADOS</td>
+                    </tr>
+                @endforelse
+            </tbody>
+        </table>
         <table class="tablaInventarioVehiculo">
             <tbody>
                 <tr>

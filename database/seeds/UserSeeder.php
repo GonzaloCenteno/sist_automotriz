@@ -22,5 +22,14 @@ class UserSeeder extends Seeder
             'created_at'   => Carbon::now(),
             'updated_at'   => Carbon::now()
         ]);
+
+        DB::table('users')->insert([
+            'name'         => 'MICHAEL BEDREGAL JALSOVEC',
+            'email'        => 'mike@gmail.com',
+            'password'     =>  Hash::make('123456'),
+            'rol'          =>  'TEC',
+            'created_at'   => Carbon::now(),
+            'updated_at'   => Carbon::now()
+        ]);
     }
 }

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Tblpersona_per;
+use App\Models\Tblmaterial_mat;
 use App\User;
 use Illuminate\Support\Str;
 
@@ -24,6 +25,16 @@ class Tblficha_fic extends Model
     public function usuario()
     {
         return $this->hasOne(User::class,'id','user_id');
+    }
+
+    public function materiales()
+    {
+        return $this->belongsToMany(Tblmaterial_mat::class,'tblfichamaterial_fma','fic_id', 'mat_id');
+    }
+
+    public function setFicInventariovehiculoAttribute($data){
+      	if($data !== null || $data !== '')
+	        $this->attributes['fic_inventariovehiculo'] = implode(",", $data);
     }
 
     public function setFicAdjuntoAttribute($imagen){

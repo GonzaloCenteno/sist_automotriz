@@ -9,6 +9,7 @@ use Carbon\Carbon;
 use App\Models\Tblpersona_per;
 use App\Models\Tblempresa_emp;
 use App\Models\Tblinventariovehiculo_ive;
+use App\Models\Tblfichamaterial_fma;
 use Illuminate\Support\Facades\Auth;
 
 class FichaController extends Controller
@@ -51,7 +52,9 @@ class FichaController extends Controller
             return redirect('/registro');
         }
         
-        $ficha = Tblficha_fic::with('persona')->where('fic_id',$id)->first();
+        $ficha = Tblficha_fic::with('persona','usuario')->where('fic_id',$id)->first();
+        $materiales = DB::select(DB::raw('SELECT a.mat_id,a.mat_descripcion,b.fma_tipo,b.fma_cantidad FROM tblmaterial_mat a
+                                            left outer join tblfichamaterial_fma b on a.mat_id = b.mat_id and b.fic_id = :var order by mat_id asc'), array('var' => $id));
 
         if($ficha->fic_inventariovehiculo !== null && $ficha->fic_inventariovehiculo !== ''):
             $inventario = DB::select("SELECT DISTINCT a.ive_id,a.ive_descripcion,
@@ -64,7 +67,7 @@ class FichaController extends Controller
             $inventario = Tblinventariovehiculo_ive::orderBy('ive_id','asc')->get();
         endif;
 
-        return view('ficha.edit', compact('ficha','inventario'));
+        return view('ficha.edit', compact('ficha','inventario','materiales'));
     }
 
     public function cargar_tabla_fichas(Request $request)
@@ -206,7 +209,8 @@ class FichaController extends Controller
 
         $empresa = Tblempresa_emp::first();
         $sql = Tblficha_fic::where('fic_id',$id)->first();
-       
+        $materiales = Tblfichamaterial_fma::with('materiales')->where('fic_id',$id)->orderBy('mat_id','asc')->get();
+
         if($sql->fic_inventariovehiculo !== null && $sql->fic_inventariovehiculo !== '')
         {
             $data = DB::select("SELECT ive_descripcion FROM tblinventariovehiculo_ive where ive_id in (".$sql->fic_inventariovehiculo.")");
@@ -222,7 +226,7 @@ class FichaController extends Controller
         
         if ($sql->count() > 0) 
         {
-            $view = \View::make('reportes.vw_ficha',compact('sql','empresa','inventario'))->render();
+            $view = \View::make('reportes.vw_ficha',compact('sql','empresa','inventario','materiales'))->render();
             $pdf = \App::make('dompdf.wrapper');
             $pdf->loadHTML($view)->setPaper('a4');
             return $pdf->stream("FICHA-".$id.".pdf");

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Models\Tblficha_fic;
 
 class Tblmaterial_mat extends Model
 {
@@ -15,6 +16,11 @@ class Tblmaterial_mat extends Model
     protected $fillable = [
         'mat_descripcion'
     ];
+
+    public function fichas()
+    {
+        return $this->belongsToMany(Tblficha_fic::class,'tblfichamaterial_fma','mat_id', 'fic_id');
+    }
 
     public function setMatDescripcionAttribute($value)
 	{

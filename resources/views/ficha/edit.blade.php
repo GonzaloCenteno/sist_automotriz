@@ -160,6 +160,30 @@
                         </div>
                     </div>
                     <hr>
+                    <table class="table table-xs table-hover table-bordered">
+                        <thead>
+                            <tr>
+                                <th class="text-center"><h4><b>MATERIALES UTILIZADOS</b></h4></th>
+                                <th class="text-center"><h4><b>TIPO O GRADO</b></h4></th>
+                                <th class="text-center"><h4><b>CANTIDAD</b></h4></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($materiales as $mat)
+                                <tr>
+                                    <td>{{ $mat->mat_descripcion }}</td>
+                                    <td>
+                                        <input type="hidden" name="mat_id[]" value="{{ $mat->mat_id }}">
+                                        <input type="text" class="form-control text-uppercase text-center" value="{{ $mat->fma_tipo }}" name="fma_tipo[]" autocomplete="off"/>
+                                    </td>
+                                    <td>
+                                        <input type="text" class="form-control text-uppercase text-center" value="{{ $mat->fma_cantidad }}" name="fma_cantidad[]" autocomplete="off"/>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                    <hr>
                     <div class="row">
                         <div class="col-md-12 text-center">
                             <h4><b>INVENTARIO DE VEHICULO</b></h4>

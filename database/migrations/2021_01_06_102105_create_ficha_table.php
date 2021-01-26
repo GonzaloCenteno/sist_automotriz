@@ -15,7 +15,7 @@ class CreateFichaTable extends Migration
     {
         Schema::create('tblficha_fic', function (Blueprint $table) {
             $table->bigIncrements('fic_id');
-            $table->text('fic_facturara');
+            $table->text('fic_facturara')->nullable();
             $table->date('fic_fecha');
             $table->bigInteger('per_id')->unsigned();
             $table->text('fic_marca');
@@ -30,7 +30,6 @@ class CreateFichaTable extends Migration
             $table->text('fic_inventariovehiculo')->nullable();
             $table->text('fic_observaciones');
             $table->text('fic_nivelcombustible');
-            $table->text('fic_adjunto')->nullable();
             $table->bigInteger('user_id')->unsigned();
             $table->timestamps();
 

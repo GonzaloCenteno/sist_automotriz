@@ -21,8 +21,8 @@ class CreatePersonaTable extends Migration
             $table->text('per_nombres')->nullable();
             $table->text('per_apaterno')->nullable();
             $table->text('per_amaterno')->nullable();
-            $table->text('per_email');
-            $table->text('per_telefonos');
+            $table->text('per_email')->nullable();
+            $table->text('per_telefonos')->nullable();
             $table->timestamps();
         });
     }

@@ -30,8 +30,8 @@ class PersonaRequest extends FormRequest
             'per_nombres' => $this->get('per_tipodocumento') == 'RUC' ? 'sometimes' : 'required',
             'per_apaterno' => $this->get('per_tipodocumento') == 'RUC' ? 'sometimes' : 'required',
             'per_amaterno' => $this->get('per_tipodocumento') == 'RUC' ? 'sometimes' : 'required',
-            'per_email' => 'required|email',
-            'per_telefonos' => 'required'
+            // 'per_email' => 'required|email',
+            // 'per_telefonos' => 'required'
         ];
     }
 
@@ -45,9 +45,9 @@ class PersonaRequest extends FormRequest
             'per_nombres.required' => 'EL CAMPO NOMBRES ES OBLIGATORIO',
             'per_apaterno.required' => 'EL CAMPO APELLIDO PATERNO ES OBLIGATORIO',
             'per_amaterno.required' => 'EL CAMPO APELLIDO MATERNO ES OBLIGATORIO',
-            'per_email.required' => 'EL CAMPO CORREO ES OBLIGATORIO',
-            'per_email.email' => 'EL CAMPO CORREO ES INVALIDO',
-            'per_telefonos.required' => 'EL CAMPO TELEFONOS ES OBLIGATORIO',
+            // 'per_email.required' => 'EL CAMPO CORREO ES OBLIGATORIO',
+            // 'per_email.email' => 'EL CAMPO CORREO ES INVALIDO',
+            // 'per_telefonos.required' => 'EL CAMPO TELEFONOS ES OBLIGATORIO',
             'per_tipodocumento.required' => 'EL CAMPO TIPO DOCUMENTO ES OBLIGATORIO',
             'per_razonsocial.required' => 'EL CAMPO RAZON SOCIAL ES OBLIGATORIO'
         ];

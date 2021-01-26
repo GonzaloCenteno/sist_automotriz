@@ -28,11 +28,13 @@ class RegistroController extends Controller
             $request['user_id'] = Auth::user()->id;
             $request['fic_fecha'] = date('Y-m-d');
             $ficha = Tblficha_fic::create($request->all());
-            foreach ($request['mat_id'] as $i => $data):
-                if($request['fma_cantidad'][$i] !== null || $request['fma_tipo'][$i] !== null || ($request['fma_tipo'][$i] !== null && $request['fma_cantidad'][$i] !== null)):
-                    $ficha->materiales()->attach($request['mat_id'][$i],[ 'fma_tipo' => $request['fma_tipo'][$i],'fma_cantidad' => $request['fma_cantidad'][$i] ]);
-                endif;
-            endforeach;
+            if($request['mat_id'] != null):
+                foreach ($request['mat_id'] as $i => $data):
+                    if($request['fma_cantidad'][$i] !== null || $request['fma_tipo'][$i] !== null || ($request['fma_tipo'][$i] !== null && $request['fma_cantidad'][$i] !== null)):
+                        $ficha->materiales()->attach($request['mat_id'][$i],[ 'fma_tipo' => $request['fma_tipo'][$i],'fma_cantidad' => $request['fma_cantidad'][$i] ]);
+                    endif;
+                endforeach;
+            endif;
 
             DB::commit();
             return $ficha->fic_id;

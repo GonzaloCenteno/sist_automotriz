@@ -24,7 +24,7 @@ class FichaRequest extends FormRequest
     public function rules()
     {
         return [
-            'fic_facturara' => 'required',
+            // 'fic_facturara' => 'required',
             'per_id' => 'required',
             'fic_marca' => 'required',
             'fic_placa' => 'required',
@@ -43,7 +43,7 @@ class FichaRequest extends FormRequest
     public function messages()
     {
         return [
-            'fic_facturara.required' => 'EL CAMPO FACTURAR A ES OBLIGATORIO',
+            // 'fic_facturara.required' => 'EL CAMPO FACTURAR A ES OBLIGATORIO',
             'per_id.required' => 'EL CAMPO PROPIETARIO ES OBLIGATORIO',
             'fic_marca.required' => 'EL CAMPO MARCA ES OBLIGATORIO',
             'fic_placa.required' => 'EL CAMPO PLACA ES OBLIGATORIO',

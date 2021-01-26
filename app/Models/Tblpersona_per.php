@@ -10,7 +10,7 @@ class Tblpersona_per extends Model
     protected $primaryKey='per_id';
 
     protected $fillable = [
-        'per_tipodocumento','per_documento','per_razonsocial','per_nombres','per_apaterno','per_amaterno','per_email','per_direccion','per_telefonos'
+        'per_tipodocumento','per_documento','per_razonsocial','per_nombres','per_apaterno','per_amaterno','per_email','per_telefonos'
     ];
 
     protected $appends = ['nombre_completo'];
@@ -48,10 +48,5 @@ class Tblpersona_per extends Model
 	public function setPerEmailAttribute($value)
 	{
 	    $this->attributes['per_email'] = strtoupper($value);
-	}
-
-	public function setPerDireccionAttribute($value)
-	{
-	    $this->attributes['per_direccion'] = strtoupper($value);
 	}
 }

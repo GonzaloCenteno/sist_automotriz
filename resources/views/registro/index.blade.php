@@ -15,20 +15,10 @@
                 <form id="FormularioCrearRegistro" method="POST" onkeydown="return event.key != 'Enter';" action="{{ route('registro.store') }}" novalidate>
                 @csrf 
                     <div class="row">
-                        <div class="col-9">
-                            <div class="form-group" id="cls_fic_facturara">
+                        <div class="col-12">
+                            <div class="form-group">
                                 <label class="control-label">*FACTURAR A.-</label>
                                 <input type="text" class="form-control text-uppercase" id="fic_facturara" name="fic_facturara" autocomplete="off"/>
-                                <span class="material-icons form-control-feedback">clear</span>
-                                <span class="invalid-feedback" role="alert" id="error_fic_facturara"><strong></strong></span>
-                            </div>
-                        </div>
-                        <div class="col-3">
-                            <div id="cls_fic_adjunto">
-                                <label class="bmd-label-floating">*ADJUNTO.-</label>
-                                <input type="file" id="fic_adjunto" name="fic_adjunto"/>
-                                <span class="material-icons form-control-feedback">clear</span>
-                                <span class="invalid-feedback" role="alert" id="error_fic_adjunto"><strong></strong></span>
                             </div>
                         </div>
                     </div>
@@ -285,7 +275,7 @@
                         <span class="invalid-feedback text-center" role="alert" id="error_fic_nivelcombustible"><strong></strong></span>
                     </div>
                     <hr>
-                    <button type="submit" class="btn btn-warning btn-round btn-md pull-right"><i class="material-icons">save</i> Guardar Datos</button>
+                    <button type="submit" class="btn btn-primary btn-block btn-round btn-md pull-right"><i class="material-icons">save</i> Guardar Datos</button>
                     <div class="clearfix"></div>
                 </form>
             </div>
@@ -358,19 +348,15 @@
                     </div>
                     <div class="row">
                         <div class="col-7">
-                            <div class="form-group" id="cls_per_email">
+                            <div class="form-group">
                                 <label class="control-label">*E-MAIL.-</label>
                                 <input type="text" class="form-control text-uppercase" id="per_email" name="per_email" autocomplete="off"/>
-                                <span class="material-icons form-control-feedback">clear</span>
-                                <span class="invalid-feedback" role="alert" id="error_per_email"><strong></strong></span>
                             </div>
                         </div>
                         <div class="col-5">
-                            <div class="form-group" id="cls_per_telefonos">
+                            <div class="form-group">
                                 <label class="control-label">*TELEFONOS.-</label>
                                 <input type="number" class="form-control text-uppercase" id="per_telefonos" name="per_telefonos" autocomplete="off"/>
-                                <span class="material-icons form-control-feedback">clear</span>
-                                <span class="invalid-feedback" role="alert" id="error_per_telefonos"><strong></strong></span>
                             </div>
                         </div>
                     </div>
@@ -395,7 +381,7 @@
     $("#registro").addClass("active");
 
 
-    $("#fic_facturara, #fic_marca, #fic_placa, #fic_modelo, #fic_color, #fic_km, #fic_nmotor, #fic_anio, #fic_nchasis, #fic_trabajosarealizar, #fic_observaciones, #fic_nivelcombustible, #per_documento, #per_nombres, #per_apaterno, #per_amaterno, #per_email, #per_telefonos, #per_razonsocial").on('focus', function () {
+    $("#fic_marca, #fic_placa, #fic_modelo, #fic_color, #fic_km, #fic_nmotor, #fic_anio, #fic_nchasis, #fic_trabajosarealizar, #fic_observaciones, #fic_nivelcombustible, #per_documento, #per_nombres, #per_apaterno, #per_amaterno, #per_razonsocial").on('focus', function () {
         limpiarErrores($(this).attr('id')); 
     });
 

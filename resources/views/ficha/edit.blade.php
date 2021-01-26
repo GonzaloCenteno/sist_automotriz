@@ -22,25 +22,10 @@
                 @csrf
                 @method('PUT')
                     <div class="row">
-                        <div class="col-7">
-                            <div class="form-group" id="cls_fic_facturara">
+                        <div class="col-12">
+                            <div class="form-group">
                                 <label class="control-label">*FACTURAR A.-</label>
                                 <input type="text" class="form-control text-uppercase" id="fic_facturara" name="fic_facturara" autocomplete="off" value="{{ $ficha->fic_facturara }}" />
-                                <span class="material-icons form-control-feedback">clear</span>
-                                <span class="invalid-feedback" role="alert" id="error_fic_facturara"><strong></strong></span>
-                            </div>
-                        </div>
-                        <div class="col-2">
-                            <div class="form-group">
-                                <a type="button" href="{{ route('download',$ficha->fic_id) }}" class="btn btn-danger btn-round text-white btn-md pull-right {{ ($ficha->fic_adjunto == null) ? 'disabled' : '' }}"><i class="material-icons">download</i> Descargar</a>
-                            </div>
-                        </div>
-                        <div class="col-3">
-                            <div id="cls_fic_adjunto">
-                                <label class="bmd-label-floating">*ADJUNTO.-</label>
-                                <input type="file" id="fic_adjunto" name="fic_adjunto"/>
-                                <span class="material-icons form-control-feedback">clear</span>
-                                <span class="invalid-feedback" role="alert" id="error_fic_adjunto"><strong></strong></span>
                             </div>
                         </div>
                     </div>
@@ -295,11 +280,49 @@
                         <span class="invalid-feedback text-center" role="alert" id="error_fic_nivelcombustible"><strong></strong></span>
                     </div>
                     <hr>
-                    <button type="submit" class="btn btn-warning btn-round btn-md pull-right"><i class="material-icons">edit</i> Modificar Datos</button>
-                    <a href="{{ route('ficha.index') }}" class="btn btn-danger btn-round btn-md pull-right"><i class="material-icons">clear</i> Salir</a>
+                    <button type="submit" class="btn btn-warning btn-block btn-round btn-md pull-right"><i class="material-icons">edit</i> Modificar Datos Ficha</button>
                     <div class="clearfix"></div>
                 </form>
             </div>
+            <hr>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <h4><b>SUBIR ARCHIVOS ADJUNTOS</b></h4>
+                    </div>
+                </div>
+                <form id="FormularioCrearArchivo" method="POST" action="{{ route('archivo.store') }}" novalidate>
+                    @csrf
+                    <div class="row">
+                        <div class="col-12 text-center">
+                            <input type="hidden" name="ficha" value="{{ $ficha->fic_id }}">  
+                            <input type="file" multiple id="archivo" name="archivo[]" accept="image/jpeg,image/gif,image/png,application/pdf,image/x-eps">
+                            <span class="invalid-feedback" role="alert" id="error_emp_imagen"><strong></strong></span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group text-center">
+                                <button type="submit" class="btn btn-round btn-block btn-md btn-primary pull-right text-center"><i class="material-icons">save</i> GUARDAR ARCHIVOS ADJUNTOS</button>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group text-center">
+                                <a href="{{ route('ficha.index') }}" class="btn btn-block btn-danger btn-round btn-md pull-right"><i class="material-icons">clear</i> Salir</a>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <div class="row">
+                    <div class="col-12">         
+                        <div class="form-group" id="contenedor">
+                          <table id="tabla_archivos"></table>
+                          <div id="paginador_tabla_archivos"></div>                         
+                      </div>                                
+                    </div>
+                </div>  
+            </div>
+            <hr>
         </div>
     </div>
 </div>
@@ -369,19 +392,15 @@
                     </div>
                     <div class="row">
                         <div class="col-7">
-                            <div class="form-group" id="cls_per_email">
+                            <div class="form-group">
                                 <label class="control-label">*E-MAIL.-</label>
                                 <input type="text" class="form-control text-uppercase" id="per_email" name="per_email" autocomplete="off"/>
-                                <span class="material-icons form-control-feedback">clear</span>
-                                <span class="invalid-feedback" role="alert" id="error_per_email"><strong></strong></span>
                             </div>
                         </div>
                         <div class="col-5">
-                            <div class="form-group" id="cls_per_telefonos">
+                            <div class="form-group">
                                 <label class="control-label">*TELEFONOS.-</label>
                                 <input type="number" class="form-control text-uppercase" id="per_telefonos" name="per_telefonos" autocomplete="off"/>
-                                <span class="material-icons form-control-feedback">clear</span>
-                                <span class="invalid-feedback" role="alert" id="error_per_telefonos"><strong></strong></span>
                             </div>
                         </div>
                     </div>
@@ -401,11 +420,52 @@
 
     jQuery(document).ready(function($){
         CKEDITOR.replace('fic_trabajosarealizar');
+
+        var url_laravel = "{{ route('archivo.show', 'id') }}";
+                url_laravel = url_laravel.replace('id', {{ $ficha->fic_id }});
+
+        jQuery("#tabla_archivos").jqGrid({
+            url: url_laravel,
+            datatype: 'json', mtype: 'GET',
+            height: 'auto', autowidth: true,
+            toolbarfilter: true,
+            forceFit:true,  
+            colNames: ['#','BORRAR','ARCHIVO','NOMBRE','FECHA CREACION'],
+            rowNum: 20, sortname: 'far_id', sortorder: 'asc', viewrecords: true, caption: 'LISTADO ARCHIVOS ADJUNTOS', align: "center",
+            colModel: [
+                {name: 'far_id', index: 'far_id', align: 'center',width: 6, hidden:true},
+                {name: 'borrar', index: 'borrar', align: 'center', width: 5, sortable:false},
+                {name: 'archivo', index: 'archivo', align: 'center', width: 8, sortable:false, formatter: ver_archivo},
+                {name: 'nombre', index: 'nombre', align: 'left', width: 40, sortable:false},
+                {name: 'fecha', index: 'fecha', align: 'center', width: 10, sortable:false}
+            ],
+            pager: '#paginador_tabla_archivos',
+            rowList: [20, 30, 40, 50],
+            gridComplete: function () {
+                var idarray = jQuery('#tabla_archivos').jqGrid('getDataIDs');
+                if (idarray.length > 0) {
+                var firstid = jQuery('#tabla_archivos').jqGrid('getDataIDs')[0];
+                        $("#tabla_archivos").setSelection(firstid);    
+                    }
+            }
+        });
     });
+
+    function ver_archivo(cellValue, options, rowObject) {
+        if(cellValue == 'application/pdf')
+        {
+            var opciones = '<img src="{{ asset("img/ico-pdf.png") }}" class="img-fluid" width="40%">';
+        }
+        else
+        {
+            var opciones = '<img src="{{ asset("img/imagen.jpg") }}" class="img-fluid" width="70%">';
+        }
+        return opciones;
+    }
 
     $("#fichas").addClass("active");
 
-    $("#fic_facturara, #fic_marca, #fic_placa, #fic_modelo, #fic_color, #fic_km, #fic_nmotor, #fic_anio, #fic_nchasis, #fic_trabajosarealizar, #fic_observaciones, #fic_nivelcombustible, #per_documento, #per_nombres, #per_apaterno, #per_amaterno, #per_email, #per_telefonos, #per_razonsocial").on('focus', function () {
+    $("#fic_marca, #fic_placa, #fic_modelo, #fic_color, #fic_km, #fic_nmotor, #fic_anio, #fic_nchasis, #fic_trabajosarealizar, #fic_observaciones, #fic_nivelcombustible, #per_documento, #per_nombres, #per_apaterno, #per_amaterno, #per_razonsocial").on('focus', function () {
         limpiarErrores($(this).attr('id')); 
     });
 
@@ -558,6 +618,28 @@
     {
         window.open('/ficha/'+fic_id+'?donwload=adjunto');
     }
+
+    $('#FormularioCrearArchivo').submit(function(e){
+        var url_laravel = "{{ route('archivo.show', 'id') }}";
+        e.preventDefault();
+        $.ajax({
+            url: $(this).attr('action'),
+            type: 'POST',
+            dataType: 'json',
+            data: new FormData($(this)[0]),
+            processData: false,
+            contentType: false,
+            success: function (data) 
+            {
+                url_laravel = url_laravel.replace('id', data);
+                alertas(4);
+                jQuery("#tabla_archivos").jqGrid('setGridParam', {
+                    url: url_laravel
+                }).trigger('reloadGrid');
+                $("#archivo").val('');
+            }
+        });
+    });
 
 </script>
 

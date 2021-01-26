@@ -22,39 +22,41 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-4">
-                            <div class="form-group" id="cls_fic_documento">
-                                <label class="control-label">*DNI/RUC.-</label>
-                                <input type="number" class="form-control text-uppercase" id="fic_documento" name="fic_documento" autocomplete="off"/>
-                                <span class="material-icons form-control-feedback">clear</span>
-                                <span class="invalid-feedback" role="alert" id="error_fic_documento"><strong></strong></span>
+                    @if(Auth::user()->rol != 'TECNICO')
+                        <div class="row">
+                            <div class="col-4">
+                                <div class="form-group" id="cls_fic_documento">
+                                    <label class="control-label">*DNI/RUC.-</label>
+                                    <input type="number" class="form-control text-uppercase" id="fic_documento" name="fic_documento" autocomplete="off"/>
+                                    <span class="material-icons form-control-feedback">clear</span>
+                                    <span class="invalid-feedback" role="alert" id="error_fic_documento"><strong></strong></span>
+                                </div>
+                            </div>
+                            <div class="col-8">
+                                <div class="form-group" id="cls_per_id">
+                                    <input type="hidden" id="per_id" name="per_id">
+                                    <label class="control-label">*PROPIETARIO.-</label>
+                                    <input type="text" class="form-control text-uppercase" id="fic_propietario" disabled/>
+                                    <span class="material-icons form-control-feedback">clear</span>
+                                    <span class="invalid-feedback" role="alert" id="error_per_id"><strong></strong></span>
+                                </div>
                             </div>
                         </div>
-                        <div class="col-8">
-                            <div class="form-group" id="cls_per_id">
-                                <input type="hidden" id="per_id" name="per_id">
-                                <label class="control-label">*PROPIETARIO.-</label>
-                                <input type="text" class="form-control text-uppercase" id="fic_propietario" disabled/>
-                                <span class="material-icons form-control-feedback">clear</span>
-                                <span class="invalid-feedback" role="alert" id="error_per_id"><strong></strong></span>
+                        <div class="row">
+                            <div class="col-7">
+                                <div class="form-group">
+                                    <label class="control-label">*E-MAIL.-</label>
+                                    <input type="email" class="form-control text-uppercase" id="fic_email" disabled/>
+                                </div>
+                            </div>
+                            <div class="col-5">
+                                <div class="form-group">
+                                    <label class="control-label">*TELEFONOS.-</label>
+                                    <input type="text" class="form-control text-uppercase" id="fic_telefonos" disabled>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-7">
-                            <div class="form-group">
-                                <label class="control-label">*E-MAIL.-</label>
-                                <input type="email" class="form-control text-uppercase" id="fic_email" disabled/>
-                            </div>
-                        </div>
-                        <div class="col-5">
-                            <div class="form-group">
-                                <label class="control-label">*TELEFONOS.-</label>
-                                <input type="text" class="form-control text-uppercase" id="fic_telefonos" disabled>
-                            </div>
-                        </div>
-                    </div>
+                    @endif
                     <div class="row">
                         <div class="col-3">
                             <div class="form-group" id="cls_fic_marca">
@@ -426,12 +428,12 @@
 
     $("#fic_documento").on( "keydown", function(event) {
         var documento = $(this);
-        if (documento.val().length >= 8)
+        if (documento.val().length == 8 || documento.val().length == 11 || documento.val().length == 0)
         {
             if (event.which == 13 && !event.shiftKey) {
                 event.preventDefault();
                 let url = "{{ route('persona.show', 'dni') }}";
-                    url = url.replace('dni', documento.val());
+                    url = url.replace('dni', documento.val() || 'dni');
                 $.ajax({
                     url: url,
                     type: 'GET',
@@ -448,11 +450,8 @@
                         }
                         else
                         {
-                            if(documento.val().length == 8 || documento.val().length == 11)
-                            {
-                                $('#ModalPersona').modal({backdrop: 'static', keyboard: false});
-                                $('#ModalPersona').modal('show');
-                            }
+                            $('#ModalPersona').modal({backdrop: 'static', keyboard: false});
+                            $('#ModalPersona').modal('show');
                         }
                         swal.close();
                     }
@@ -469,6 +468,15 @@
             $('#per_nombres').focus();
             $(".informacion_persona").show();
             $(".informacion_empresa").hide();
+            $("#per_documento").attr('name','per_documento');
+        }
+        else if($("#fic_documento").val().length == 0)
+        {
+            $("#tipo_documento").text("*DNI.-");
+            $('#per_nombres').focus();
+            $(".informacion_persona").show();
+            $(".informacion_empresa").hide();
+            $("#per_documento").attr('name','documento_shet');
         }
         else
         {
@@ -476,6 +484,7 @@
             $('#per_razonsocial').focus();
             $(".informacion_persona").hide();
             $(".informacion_empresa").show();
+            $("#per_documento").attr('name','per_documento');
         }
         limpiarFormularioPersona();
     });

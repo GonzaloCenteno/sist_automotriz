@@ -25,8 +25,16 @@ class RegistroController extends Controller
         if(!$request->ajax()) return redirect('/');
         DB::beginTransaction();
         try{
+                $sql = Tblficha_fic::orderBy('fic_id','DESC')->take(1)->first();
+                if ($sql):
+                    $orden = $sql->fic_ordentrabajo + 1;
+                else:
+                    $orden = 1;
+                endif;
+            $request['per_id'] = isset($request['per_id']) ? $request['per_id'] : 1;
             $request['user_id'] = Auth::user()->id;
             $request['fic_fecha'] = date('Y-m-d');
+            $request['fic_ordentrabajo'] = $orden;
             $ficha = Tblficha_fic::create($request->all());
             if($request['mat_id'] != null):
                 foreach ($request['mat_id'] as $i => $data):

@@ -30,6 +30,7 @@ class CreateFichaTable extends Migration
             $table->text('fic_inventariovehiculo')->nullable();
             $table->text('fic_observaciones');
             $table->text('fic_nivelcombustible');
+            $table->Integer('fic_ordentrabajo');
             $table->bigInteger('user_id')->unsigned();
             $table->timestamps();
 

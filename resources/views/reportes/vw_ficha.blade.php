@@ -23,8 +23,8 @@
         <table>
             <tbody>
                 <tr>
-                    <td style="" colspan="2">FACTURAR A</td>
-                    <td style="" class="bordeBajo" colspan="2">: {{ $sql->fic_facturara }}</td>
+                    <td style="" colspan="2">DNI/RUC</td>
+                    <td style="" class="bordeBajo" colspan="2">: {{ $sql->persona->per_documento }}</td>
                     <td style="" colspan="2">FECHA</td>
                     <td style="text-align: center" class="bordeBajo" colspan="2">: {{ $sql->fic_fecha }}</td>
                 </tr>
@@ -41,7 +41,7 @@
                     <td style="" colspan="2">TELEFONOS</td>
                     <td style="" class="bordeBajo" colspan="2">: {{ $sql->persona->per_telefonos }}</td>
                     <td colspan="1"></td>
-                    <td class="numOrden" style="text-align: center" colspan="3">N° {{ str_pad($sql->fic_id,  6, "0",STR_PAD_LEFT) }}</td>
+                    <td class="numOrden" style="text-align: center" colspan="3">N° {{ str_pad($sql->fic_ordentrabajo,  6, "0",STR_PAD_LEFT) }}</td>
                 </tr>  
                 <tr>
                     <td style="" colspan="2">MARCA</td>

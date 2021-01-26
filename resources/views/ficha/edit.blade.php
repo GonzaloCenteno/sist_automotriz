@@ -295,7 +295,8 @@
                     @csrf
                     <div class="row">
                         <div class="col-12 text-center">
-                            <input type="hidden" name="ficha" value="{{ $ficha->fic_id }}">  
+                            <input type="hidden" name="identificador" value="{{ $ficha->fic_id }}">  
+                            <input type="hidden" name="ficha" value="{{ $ficha->fic_ordentrabajo }}">  
                             <input type="file" multiple id="archivo" name="archivo[]" accept="image/jpeg,image/gif,image/png,application/pdf,image/x-eps">
                             <span class="invalid-feedback" role="alert" id="error_emp_imagen"><strong></strong></span>
                         </div>
@@ -415,6 +416,28 @@
     </div>
 </div>
 
+<div class="modal fade" id="ModalVerArchivos" tabindex="-1" role="">
+    <div class="modal-dialog modal-login modal-lg" role="document">
+        <div class="card modal-content">
+            <div class="card-header card-header-primary text-center" style="background: #383d81">
+                <div class="row">
+                    <div class="col-11 text-center">
+                        <h4 class="card-title">VISOR DOCUMENTOS</h4>
+                    </div>
+                    <div class="col-1">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                          <i class="material-icons" style="color: #ffffff">clear</i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <iframe id="ver_archivo" style="width:100%; height:500px;" frameborder="0" allowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
+</div>
+
 @section('page-js-script')
 <script type="text/javascript">
 
@@ -435,7 +458,7 @@
             colModel: [
                 {name: 'far_id', index: 'far_id', align: 'center',width: 6, hidden:true},
                 {name: 'borrar', index: 'borrar', align: 'center', width: 5, sortable:false},
-                {name: 'archivo', index: 'archivo', align: 'center', width: 8, sortable:false, formatter: ver_archivo},
+                {name: 'archivo', index: 'archivo', align: 'center', width: 8, sortable:false},
                 {name: 'nombre', index: 'nombre', align: 'left', width: 40, sortable:false},
                 {name: 'fecha', index: 'fecha', align: 'center', width: 10, sortable:false}
             ],
@@ -450,18 +473,6 @@
             }
         });
     });
-
-    function ver_archivo(cellValue, options, rowObject) {
-        if(cellValue == 'application/pdf')
-        {
-            var opciones = '<img src="{{ asset("img/ico-pdf.png") }}" class="img-fluid" width="40%">';
-        }
-        else
-        {
-            var opciones = '<img src="{{ asset("img/imagen.jpg") }}" class="img-fluid" width="70%">';
-        }
-        return opciones;
-    }
 
     $("#fichas").addClass("active");
 
@@ -640,6 +651,61 @@
             }
         });
     });
+
+    function fn_ver_archivos(arc_id)
+    {
+        let url_laravel = "{{ route('ficha.show', 'id') }}";
+        url_laravel = url_laravel.replace('id', arc_id);
+        $('#ModalVerArchivos').modal({backdrop: 'static', keyboard: false});
+        $('#ModalVerArchivos').modal('show');
+        $('#ver_archivo').attr('src',url_laravel+'?archivo=ver_adjunto');
+    }
+
+    function fn_eliminar_archivo(fic_id, far_id, arc_id, arc_nombre, arc_url)
+    {
+        let url_destroy = "{{ route('archivo.destroy', 'id') }}";
+                url_destroy = url_destroy.replace('id', far_id);
+        swal({
+            title: '¿QUIERE ELIMINAR ESTE ARCHIVO?',
+            html: "<b>"+arc_nombre+"</b>",
+            type: 'warning',
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'ACEPTAR',
+            cancelButtonText: 'CANCELAR',
+            confirmButtonClass: 'btn btn-outline-primary btn-sm',
+            cancelButtonClass: 'btn btn-outline-danger btn-sm',
+            showCancelButton: true,
+            buttonsStyling: false,
+            allowOutsideClick: false,
+            allowEscapeKey:false,
+            allowEnterKey:false,
+            reverseButtons: true
+        }).then(function(result) {
+            if(result)
+            {
+                $.ajax({
+                    url: url_destroy,
+                    type: 'POST',
+                    data:
+                    {
+                        _method: 'delete',
+                        arc_id:arc_id,
+                        arc_url:arc_url
+                    },
+                    success: function(data) 
+                    {
+                        let url_show = "{{ route('archivo.show', 'id') }}";
+                        url_show = url_show.replace('id', fic_id);
+                        alertas(4);
+                        jQuery("#tabla_archivos").jqGrid('setGridParam', {
+                            url: url_show
+                        }).trigger('reloadGrid');
+                    }
+                });
+            }
+        });
+    }
 
 </script>
 

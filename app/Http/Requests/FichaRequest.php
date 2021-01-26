@@ -25,7 +25,7 @@ class FichaRequest extends FormRequest
     {
         return [
             // 'fic_facturara' => 'required',
-            'per_id' => 'required',
+            'per_id' => 'sometimes|required',
             'fic_marca' => 'required',
             'fic_placa' => 'required',
             'fic_modelo' => 'required',

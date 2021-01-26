@@ -5,10 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Tblarchivo_arc;
 use App\Models\Tblfichaarchivo_far;
-//use App\Http\Requests\MaterialRequest;
+use App\Http\Requests\ArchivoRequest;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
+use File;
 
 class ArchivoController extends Controller
 {
@@ -18,7 +19,7 @@ class ArchivoController extends Controller
         $limit = $request['rows'];
         $sidx = $request['sidx'];
         $sord = $request['sord'];
-        $start = ($limit * $page) - $limit; 
+        $start = ($limit * $page) - $limit;
         if ($start < 0) {
             $start = 0;
         }
@@ -40,12 +41,14 @@ class ArchivoController extends Controller
         $Lista->page = $page;
         $Lista->total = $total_pages;
         $Lista->records = $count;
+        $pdf = asset('img/ico-pdf.png');
+        $img = asset('img/imagen.jpg');
         foreach ($sql as $Index => $Datos) {
             $Lista->rows[$Index]['id'] = $Datos->far_id;
             $Lista->rows[$Index]['cell'] = array(
                 $Datos->far_id,
-                '<button class="btn btn-danger btn-sm btn-fab btn-round py-0 my-0" onClick="fn_eliminar_archivo('.$Datos->far_id.')"><i class="material-icons">clear</i></button>',
-                $Datos->archivos[0]->arc_tipo,
+                '<button class="btn btn-danger btn-sm btn-fab btn-round py-0 my-0" onClick="fn_eliminar_archivo('.$Datos->fic_id.','.$Datos->far_id.','.$Datos->archivos[0]->arc_id.',\''.$Datos->archivos[0]->arc_nombre.'\',\''.$Datos->archivos[0]->arc_url.'\')"><i class="material-icons">clear</i></button>',
+                ($Datos->archivos[0]->arc_tipo == 'application/pdf') ? '<img onclick="fn_ver_archivos('.$Datos->archivos[0]->arc_id.')" src="'.$pdf.'" class="img-fluid" width="40%">' : '<img onclick="fn_ver_archivos('.$Datos->archivos[0]->arc_id.')" src="'.$img.'" class="img-fluid" width="70%">',
                 $Datos->archivos[0]->arc_nombre,
                 Carbon::parse($Datos->archivos[0]->created_at)->format('Y-m-d')
             );
@@ -53,7 +56,7 @@ class ArchivoController extends Controller
         return response()->json($Lista);
     }
 
-    public function store(Request $request)
+    public function store(ArchivoRequest $request)
     {
         DB::beginTransaction();
         try{
@@ -72,11 +75,11 @@ class ArchivoController extends Controller
                     $Archivos->arc_url      = 'adjuntos/'.$request['ficha'].'/'.$nomb_ascii;
                     $Archivos->save();
 
-                    $Archivos->fichas()->attach($request['ficha']);
+                    $Archivos->fichas()->attach($request['identificador']);
                 }
             }
             DB::commit();
-            return $request['ficha'];
+            return $request['identificador'];
 
         } catch (\Exception $ex) {
             DB::rollback();
@@ -84,8 +87,20 @@ class ArchivoController extends Controller
         }
     }
 
-    public function destroy(Request $request)
+    public function destroy(Request $request, $id)
     {
-        return Tblarchivo_arc::where('mat_id',$request['mat_id'])->delete();
+        DB::beginTransaction();
+        try{
+            Tblfichaarchivo_far::where('far_id',$id)->delete();
+            Tblarchivo_arc::where('arc_id',$request['arc_id'])->delete();
+            File::delete($request['arc_url']);
+
+            DB::commit();
+            return 1;
+
+        } catch (\Exception $ex) {
+            DB::rollback();
+            return $ex->getMessage(); 
+        }
     }
 }

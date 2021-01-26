@@ -8,6 +8,7 @@ use App\Models\Tblficha_fic;
 use Carbon\Carbon;
 use App\Models\Tblpersona_per;
 use App\Models\Tblempresa_emp;
+use App\Models\Tblarchivo_arc;
 use App\Models\Tblinventariovehiculo_ive;
 use App\Models\Tblfichamaterial_fma;
 use Illuminate\Support\Facades\Auth;
@@ -26,6 +27,10 @@ class FichaController extends Controller
             if($request['reporte'] == 'ficha')
             {
                 return $this->imprimir_reporte_ficha($request, $id);
+            }
+            if($request['archivo'] == 'ver_adjunto')
+            {
+                return $this->ver_adjunto($request, $id);
             }   
         }
         else
@@ -141,6 +146,7 @@ class FichaController extends Controller
             $Lista->rows[$Index]['id'] = $Datos->fic_id;
             $Lista->rows[$Index]['cell'] = array(
                 $Datos->fic_id,
+                $Datos->fic_ordentrabajo,
                 '<a class="btn btn-warning btn-sm btn-fab btn-round py-0 my-0" href="'.route('ficha.edit',$Datos->fic_id).'"><i class="material-icons">edit</i></a>',
                 '<button class="btn btn-default btn-sm btn-fab btn-round py-0 my-0" onClick="fn_imprimir('.$Datos->fic_id.')"><i class="material-icons">print</i></button>',
                 $Datos->fic_facturara,
@@ -237,12 +243,13 @@ class FichaController extends Controller
         }
     }
 
-    public function descargar_adjunto(Request $request, $fic_id)
+    public function ver_adjunto(Request $request, $arc_id)
     {
-        $archivo = Tblficha_fic::where('fic_id',$fic_id)->first();
-        if (file_exists(public_path($archivo->fic_adjunto))) 
+        $archivo = Tblarchivo_arc::where('arc_id',$arc_id)->first();
+        if (file_exists(public_path($archivo->arc_url))) 
         {
-            return \Response::download($archivo->fic_adjunto);
+            $ruta = response()->file($archivo->arc_url);
+            return $ruta;
         }
         else 
         {

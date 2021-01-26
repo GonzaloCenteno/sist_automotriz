@@ -17,11 +17,11 @@
                 @method('PUT')
                     <div class="row">
                         <div class="col-12">
-                            <div class="form-group" id="mat_descripcion">
+                            <div class="form-group" id="cls_mat_descripcion">
                                 <label class="control-label">*Descripcion.-</label>
                                 <input type="text" class="form-control text-uppercase" id="mat_descripcion" name="mat_descripcion" value="{{ $material->mat_descripcion }}"/>
                                 <span class="material-icons form-control-feedback">clear</span>
-                                <span class="invalid-feedback" role="alert" id="mat_descripcion"><strong></strong></span>
+                                <span class="invalid-feedback" role="alert" id="error_mat_descripcion"><strong></strong></span>
                             </div>
                         </div>
                     </div>

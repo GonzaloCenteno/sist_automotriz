@@ -64,10 +64,11 @@
         height: '400px', autowidth: true,
         toolbarfilter: true,
         forceFit:true,  
-        colNames: ['#','VER','IMP.','FACTURADO A', 'PROPIETARIO', 'FECHA', 'MARCA', 'PLACA', 'MODELO'],
+        colNames: ['ID','#','VER','IMP.','FACTURADO A', 'PROPIETARIO', 'FECHA', 'MARCA', 'PLACA', 'MODELO'],
         rowNum: 20, sortname: 'fic_id', sortorder: 'asc', viewrecords: true, caption: 'LISTADO DE FICHAS', align: "center",
         colModel: [
-            {name: 'fic_id', index: 'fic_id', align: 'center',width: 4},
+            {name: 'fic_id', index: 'fic_id', align: 'center',width: 4, hidden:true},
+            {name: 'fic_ordentrabajo', index: 'fic_ordentrabajo', align: 'center',width: 4},
             {name: 'btn_ver', index: 'btn_ver', align: 'center', width: 5,sortable: false},
             {name: 'btn_imprimir', index: 'btn_imprimir', align: 'center', width: 5,sortable: false},
             {name: 'fic_fecha', index: 'fic_fecha', align: 'left', width: 15},

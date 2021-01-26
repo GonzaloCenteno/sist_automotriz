@@ -14,7 +14,7 @@ class Tblficha_fic extends Model
     protected $primaryKey='fic_id';
 
     protected $fillable = [
-        'fic_facturara','fic_fecha','per_id','fic_marca','fic_placa','fic_modelo','fic_color','fic_km','fic_nmotor','fic_anio','fic_nchasis','fic_trabajosarealizar','fic_inventariovehiculo','fic_observaciones','fic_nivelcombustible','fic_adjunto','user_id'
+        'fic_facturara','fic_fecha','per_id','fic_marca','fic_placa','fic_modelo','fic_color','fic_km','fic_nmotor','fic_anio','fic_nchasis','fic_trabajosarealizar','fic_inventariovehiculo','fic_observaciones','fic_nivelcombustible','fic_adjunto','fic_ordentrabajo','user_id'
     ];
 
     public function persona()

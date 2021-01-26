@@ -60,6 +60,12 @@
                                     <p>USUARIOS</p>
                                 </a>
                             </li>
+                            <li class="nav-item" id="personas">
+                                <a class="nav-link" href="{{ route('persona.index') }}">
+                                    <i class="material-icons">accessibility</i>
+                                    <p>PERSONAS</p>
+                                </a>
+                            </li>
                             <li class="nav-item" id="inventario_vehiculo">
                                 <a class="nav-link" href="{{ route('inventario_vehiculo.index') }}">
                                     <i class="material-icons">home_repair_service</i>

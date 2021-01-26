@@ -27,7 +27,6 @@ Route::middleware(['auth','acceso','web'])->group(function () {
 	Route::resource('/persona', 'PersonaController');
 	Route::resource('/ficha', 'FichaController');
 	Route::resource('/micuenta', 'CuentaController');
-	route::get('download/{fic_id}', 'FichaController@descargar_adjunto')->name('download');
 	Route::resource('/material', 'MaterialController');
 	Route::resource('/archivo', 'ArchivoController');
 });

@@ -16,7 +16,7 @@ class CreatePersonaTable extends Migration
         Schema::create('tblpersona_per', function (Blueprint $table) {
             $table->bigIncrements('per_id');
             $table->enum('per_tipodocumento',['DNI','RUC']);
-            $table->text('per_documento')->unique();
+            $table->string('per_documento')->unique();
             $table->text('per_razonsocial')->nullable();
             $table->text('per_nombres')->nullable();
             $table->text('per_apaterno')->nullable();

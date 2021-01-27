@@ -15,7 +15,7 @@ class CreateInventarioVehiculoTable extends Migration
     {
         Schema::create('tblinventariovehiculo_ive', function (Blueprint $table) {
             $table->bigIncrements('ive_id');
-            $table->text('ive_descripcion')->unique();
+            $table->string('ive_descripcion')->unique();
             $table->timestamps();
             $table->softDeletes();
         });

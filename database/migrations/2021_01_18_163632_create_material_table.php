@@ -15,7 +15,7 @@ class CreateMaterialTable extends Migration
     {
         Schema::create('tblmaterial_mat', function (Blueprint $table) {
             $table->bigIncrements('mat_id');
-            $table->text('mat_descripcion')->unique();
+            $table->string('mat_descripcion')->unique();
             $table->timestamps();
             $table->softDeletes();
         });

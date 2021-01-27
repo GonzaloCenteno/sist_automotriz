@@ -305,7 +305,7 @@
                     <div class="row">
                         <div class="col-6">
                             <div class="form-group text-center">
-                                <button type="submit" class="btn btn-round btn-block btn-md btn-primary pull-right text-center"><i class="material-icons">save</i> GUARDAR ARCHIVOS ADJUNTOS</button>
+                                <button type="submit" id="btn_guardar_adjuntos" class="btn btn-round btn-block btn-md btn-primary pull-right text-center"><i class="material-icons">save</i> GUARDAR ARCHIVOS ADJUNTOS</button>
                             </div>
                         </div>
                         <div class="col-6">
@@ -444,6 +444,7 @@
 
     jQuery(document).ready(function($){
         CKEDITOR.replace('fic_trabajosarealizar');
+        $("#btn_guardar_adjuntos").prop("disabled", true);
 
         var url_laravel = "{{ route('archivo.show', 'id') }}";
                 url_laravel = url_laravel.replace('id', {{ $ficha->fic_id }});
@@ -489,6 +490,10 @@
         $("#error_fic_nivelcombustible").hide();
         $("#error_fic_nivelcombustible").text('');
         $("#cls_fic_nivelcombustible").removeClass('has-danger');
+    });
+
+    $("#archivo").change(function() {
+        $("#btn_guardar_adjuntos").prop("disabled", false);
     });
 
     $('#FormularioModificarRegistro').submit(function(e){
@@ -651,6 +656,7 @@
                 jQuery("#tabla_archivos").jqGrid('setGridParam', {
                     url: url_laravel
                 }).trigger('reloadGrid');
+                $("#btn_guardar_adjuntos").prop("disabled", true);
                 $("#archivo").val('');
             }
         });

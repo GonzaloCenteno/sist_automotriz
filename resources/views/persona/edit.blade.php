@@ -17,11 +17,11 @@
                 @method('PUT')
                     <div class="row">
                         <div class="col-6">
-                            <div class="form-group" id="cls_per_nombres">
-                                <label class="control-label">*Nombres.-</label>
-                                <input type="text" class="form-control text-uppercase" id="per_nombres" name="per_nombres" value="{{ $persona->per_nombres }}"/>
-                                <span class="material-icons form-control-feedback">clear</span>
-                                <span class="invalid-feedback" role="alert" id="error_per_nombres"><strong></strong></span>
+                            <div class="form-group">
+                                <select id="per_tipodocumento" name="per_tipodocumento" class="form-control" aria-describedby="rol">
+                                    <option value="DNI" {{ 'DNI' == $persona->per_tipodocumento ? 'selected' : '' }}>DNI</option>  
+                                    <option value="RUC" {{ 'RUC' == $persona->per_tipodocumento ? 'selected' : '' }}>RUC</option>
+                                </select>
                             </div>
                         </div>
                         <div class="col-6">
@@ -33,57 +33,59 @@
                             </div>
                         </div>
                     </div>
+                    @if($persona->per_tipodocumento == 'RUC')
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="form-group" id="cls_per_razonsocial">
+                                    <label class="control-label">*Razon Social.-</label>
+                                    <input type="text" class="form-control text-uppercase" id="per_razonsocial" name="per_razonsocial" value="{{ $persona->per_razonsocial }}"/>
+                                    <span class="material-icons form-control-feedback">clear</span>
+                                    <span class="invalid-feedback" role="alert" id="error_per_razonsocial"><strong></strong></span>
+                                </div>
+                            </div>
+                        </div>
+                    @endif
+                    @if($persona->per_tipodocumento == 'DNI')
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="form-group" id="cls_per_nombres">
+                                    <label class="control-label">*Nombres.-</label>
+                                    <input type="text" class="form-control text-uppercase" id="per_nombres" name="per_nombres" value="{{ $persona->per_nombres }}"/>
+                                    <span class="material-icons form-control-feedback">clear</span>
+                                    <span class="invalid-feedback" role="alert" id="error_per_nombres"><strong></strong></span>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group" id="cls_per_apaterno">
+                                    <label class="control-label">*Apellido Paterno.-</label>
+                                    <input type="text" class="form-control text-uppercase" id="per_apaterno" name="per_apaterno" value="{{ $persona->per_apaterno }}"/>
+                                    <span class="material-icons form-control-feedback">clear</span>
+                                    <span class="invalid-feedback" role="alert" id="error_per_apaterno"><strong></strong></span>
+                                </div>
+                            </div>
+                        </div>
+                    @endif
                     <div class="row">
-                        <div class="col-12">
-                            <div class="form-group" id="cls_per_razonsocial">
-                                <label class="control-label">*Razon Social.-</label>
-                                <input type="text" class="form-control text-uppercase" id="per_razonsocial" name="per_razonsocial" value="{{ $persona->per_razonsocial }}"/>
-                                <span class="material-icons form-control-feedback">clear</span>
-                                <span class="invalid-feedback" role="alert" id="error_per_razonsocial"><strong></strong></span>
+                        @if($persona->per_tipodocumento == 'DNI')
+                            <div class="col-5">
+                                <div class="form-group" id="cls_per_amaterno">
+                                    <label class="control-label">*Apellido Materno.-</label>
+                                    <input type="text" class="form-control text-uppercase" id="per_amaterno" name="per_amaterno" value="{{ $persona->per_amaterno }}"/>
+                                    <span class="material-icons form-control-feedback">clear</span>
+                                    <span class="invalid-feedback" role="alert" id="error_per_amaterno"><strong></strong></span>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-6">
-                            <div class="form-group" id="cls_per_nombres">
-                                <label class="control-label">*Nombres.-</label>
-                                <input type="text" class="form-control text-uppercase" id="per_nombres" name="per_nombres" value="{{ $persona->per_nombres }}"/>
-                                <span class="material-icons form-control-feedback">clear</span>
-                                <span class="invalid-feedback" role="alert" id="error_per_nombres"><strong></strong></span>
-                            </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="form-group" id="cls_per_apaterno">
-                                <label class="control-label">*Apellido Paterno.-</label>
-                                <input type="text" class="form-control text-uppercase" id="per_apaterno" name="per_apaterno" value="{{ $persona->per_apaterno }}"/>
-                                <span class="material-icons form-control-feedback">clear</span>
-                                <span class="invalid-feedback" role="alert" id="error_per_apaterno"><strong></strong></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-5">
-                            <div class="form-group" id="cls_per_amaterno">
-                                <label class="control-label">*Apellido Materno.-</label>
-                                <input type="text" class="form-control text-uppercase" id="per_amaterno" name="per_amaterno" value="{{ $persona->per_amaterno }}"/>
-                                <span class="material-icons form-control-feedback">clear</span>
-                                <span class="invalid-feedback" role="alert" id="error_per_amaterno"><strong></strong></span>
-                            </div>
-                        </div>
+                        @endif
                         <div class="col-3">
-                            <div class="form-group" id="cls_per_email">
+                            <div class="form-group">
                                 <label class="control-label">*Email.-</label>
                                 <input type="text" class="form-control text-uppercase" id="per_email" name="per_email" value="{{ $persona->per_email }}"/>
-                                <span class="material-icons form-control-feedback">clear</span>
-                                <span class="invalid-feedback" role="alert" id="error_per_email"><strong></strong></span>
                             </div>
                         </div>
                         <div class="col-4">
-                            <div class="form-group" id="cls_per_telefonos">
+                            <div class="form-group">
                                 <label class="control-label">*Telefonos.-</label>
                                 <input type="text" class="form-control text-uppercase" id="per_telefonos" name="per_telefonos" value="{{ $persona->per_telefonos }}"/>
-                                <span class="material-icons form-control-feedback">clear</span>
-                                <span class="invalid-feedback" role="alert" id="error_per_telefonos"><strong></strong></span>
                             </div>
                         </div>
                     </div>
@@ -100,17 +102,19 @@
 
     $("#personas").addClass("active");
 
-    $("#mat_descripcion").on('focus', function () {
+    $("#per_documento, #per_razonsocial, #per_nombres, #per_apaterno, #per_amaterno, #per_email, #per_telefonos").on('focus', function () {
         limpiarErrores($(this).attr('id'));
     });
 
     $('#FormularioEditarPersona').submit(function(e){
         e.preventDefault();
+        var FormularioRegistro = new FormData($(this)[0]);
+        FormularioRegistro.append('count', ($("#per_tipodocumento").val() == 'DNI') ? 8 : 11 );
         $.ajax({
             url: $(this).attr('action'),
             type: 'POST',
             dataType: 'json',
-            data: new FormData($(this)[0]),
+            data: FormularioRegistro,
             processData: false,
             contentType: false,
             success: function (data) 

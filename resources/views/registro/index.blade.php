@@ -437,6 +437,9 @@
                 $.ajax({
                     url: url,
                     type: 'GET',
+                    data: {
+                        busqueda:'persona'
+                    },
                     dataType: 'json',
                     success: function (data) 
                     {
@@ -493,7 +496,7 @@
         e.preventDefault();
         var FormularioRegistro = new FormData($(this)[0]);
         FormularioRegistro.append('count', $("#fic_documento").val().length);
-        FormularioRegistro.append('per_tipodocumento', ($("#fic_documento").val().length == 8) ? 'DNI' : 'RUC');
+        FormularioRegistro.append('per_tipodocumento', ($("#fic_documento").val().length == 8 || $("#fic_documento").val().length == 0) ? 'DNI' : 'RUC');
 
         $.ajax({
             url: $(this).attr('action'),

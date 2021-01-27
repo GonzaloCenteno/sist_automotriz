@@ -10,7 +10,7 @@
                         <h4 class="card-title">Ver Informacion - Personas</h4>
                     </div>
                     <div class="col-2">
-                        <a href="{{ route('material.create') }}" class="btn btn-danger btn-fab btn-round py-0 my-0" style="background-color: #5B5B5B"><i class="material-icons">add</i></a>
+                        <a href="{{ route('persona.create') }}" class="btn btn-danger btn-fab btn-round py-0 my-0" style="background-color: #5B5B5B"><i class="material-icons">add</i></a>
                     </div>
                 </div>
             </div>
@@ -31,7 +31,7 @@
     $("#personas").addClass("active");
 
     jQuery("#tabla_personas").jqGrid({
-        url: 'persona/create',
+        url: 'persona/1?tabla=persona',
         datatype: 'json', mtype: 'GET',
         height: '400px', autowidth: true,
         toolbarfilter: true,

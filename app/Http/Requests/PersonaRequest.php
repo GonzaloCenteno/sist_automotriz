@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class PersonaRequest extends FormRequest
 {
@@ -24,7 +25,8 @@ class PersonaRequest extends FormRequest
     public function rules()
     {
         return [
-            'per_documento' => 'sometimes|required|numeric|unique:tblpersona_per|digits_between:'.$this->get('count').','.$this->get('count'),
+            //'per_documento' => 'sometimes|required|numeric|unique:tblpersona_per|digits_between:'.$this->get('count').','.$this->get('count'),
+            'per_documento' => ['sometimes','required','numeric','digits_between:'.$this->get('count').','.$this->get('count'), Rule::unique('tblpersona_per')->ignore($this->persona,'per_id')],
             'per_tipodocumento' => 'required',
             'per_razonsocial' => $this->get('per_tipodocumento') == 'DNI' ? 'sometimes' : 'required',
             'per_nombres' => $this->get('per_tipodocumento') == 'RUC' ? 'sometimes' : 'required',

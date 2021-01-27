@@ -18,6 +18,36 @@ class PersonaController extends Controller
 
     public function create(Request $request)
     {
+        return view('persona.create');
+    }
+
+    public function store(PersonaRequest $request)
+    {
+        if(!$request->ajax()) return redirect('/');
+        $sql = Tblficha_fic::orderBy('fic_id','DESC')->take(1)->first();
+        if ($sql):
+            $orden = $sql->fic_ordentrabajo + 1;
+        else:
+            $orden = 1;
+        endif;
+        $request['per_documento'] = ($request['per_documento']) ? $request['per_documento'] : $orden;
+        return Tblpersona_per::create($request->all());
+    }
+
+    public function show(Request $request, $id)
+    {
+        if($request['tabla'] == 'persona' )
+        {
+            return $this->crear_tabla_persona($request);
+        }
+        if($request['busqueda'] == 'persona' )
+        {
+            return $this->buscar_datos_persona($request, $id);
+        }
+    }
+
+    public function crear_tabla_persona(Request $request)
+    {
         $page = $request['page'];
         $limit = $request['rows'];
         $sidx = $request['sidx'];
@@ -57,20 +87,7 @@ class PersonaController extends Controller
         return response()->json($Lista);
     }
 
-    public function store(PersonaRequest $request)
-    {
-        if(!$request->ajax()) return redirect('/');
-        $sql = Tblficha_fic::orderBy('fic_id','DESC')->take(1)->first();
-        if ($sql):
-            $orden = $sql->fic_ordentrabajo + 1;
-        else:
-            $orden = 1;
-        endif;
-        $request['per_documento'] = ($request['per_documento']) ? $request['per_documento'] : $orden;
-        return Tblpersona_per::create($request->all());
-    }
-
-    public function show(Request $request,$per_documento)
+    public function buscar_datos_persona(Request $request, $per_documento)
     {
         if($per_documento == 'dni'):
             return 0;
@@ -95,9 +112,11 @@ class PersonaController extends Controller
         ]);
     }
 
-    public function update(PersonaRequest $request, $id)
+    public function update(PersonaRequest $request, $per_id)
     {
-        
+        $persona = Tblpersona_per::find($per_id);
+        $persona->update($request->all());
+        return $persona->per_id;
     }
 
 }

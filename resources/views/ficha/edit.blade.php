@@ -293,12 +293,13 @@
                 </div>
                 <form id="FormularioCrearArchivo" method="POST" action="{{ route('archivo.store') }}" novalidate>
                     @csrf
-                    <div class="row">
+                    <div class="row" id="cls_archivo">
                         <div class="col-12 text-center">
                             <input type="hidden" name="identificador" value="{{ $ficha->fic_id }}">  
                             <input type="hidden" name="ficha" value="{{ $ficha->fic_ordentrabajo }}">  
                             <input type="file" multiple id="archivo" name="archivo[]" accept="image/jpeg,image/gif,image/png,application/pdf,image/x-eps">
-                            <span class="invalid-feedback" role="alert" id="error_emp_imagen"><strong></strong></span>
+                            <span class="material-icons form-control-feedback">clear</span>
+                            <span class="invalid-feedback" role="alert" id="error_archivo"><strong></strong></span>
                         </div>
                     </div>
                     <div class="row">
@@ -523,6 +524,9 @@
                 $.ajax({
                     url: url,
                     type: 'GET',
+                    data: {
+                        busqueda:'persona'
+                    },
                     dataType: 'json',
                     success: function (data) 
                     {
